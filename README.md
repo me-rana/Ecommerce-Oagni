@@ -8,4 +8,5 @@ This is a laravel ecommerce project and used as sample of my work
 ![Screenshot](image/screenshot.png)
 
 Thanks, <br>
-Rana Bepari
+Rana Bepari <br>
+<a href="https://rana.meranaint.com/">https://rana.meranaint.com/</a>
