@@ -8,7 +8,14 @@ This is a laravel ecommerce project and used as sample of my work
 ![Screenshot](image/screenshot.png)
 
 <br>
+Admin Panel <br>
 <img src="image/admin_products.png">
+<br>
+Seller Panel <br>
+<img src="image/seller_order.png">
+<br>
+User Panel <br>
+<img src="image/user_order_details.png">
 
 Thanks, <br>
 Rana Bepari <br>
