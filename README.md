@@ -8,13 +8,13 @@ This is a laravel ecommerce project and used as sample of my work
 ![Screenshot](image/screenshot.png)
 
 <br>
-Admin Panel <br>
+<center><h3>Admin Panel</h3> </center><br>
 <img src="image/admin_products.png">
 <br>
-Seller Panel <br>
+<center><h3>Seller Panel</h3></center> <br>
 <img src="image/seller_order.png">
 <br>
-User Panel <br>
+<center><h3>User Panel</h3></center> <br>
 <img src="image/user_order_details.png">
 
 Thanks, <br>
