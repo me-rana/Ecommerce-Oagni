@@ -8,7 +8,7 @@ This is a laravel ecommerce project and used as sample of my work
 ![Screenshot](image/screenshot.png)
 
 <br>
-<img src="image/admin_products">
+<img src="image/admin_products.png">
 
 Thanks, <br>
 Rana Bepari <br>
