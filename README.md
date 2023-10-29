@@ -3,7 +3,7 @@ This is a laravel ecommerce project and used as sample of my work
 
 <a href="https://ecommerce.rana.meranaint.com">Live Website of Oagni Ecommerce Website</a>
 </br>
-{Class "PDO" not found : Now try to fixing Blog Website, After that I will fix the --Class "PDO" not found-- issues}
+
 
 
 ![Screenshot](image/screenshot.png)
