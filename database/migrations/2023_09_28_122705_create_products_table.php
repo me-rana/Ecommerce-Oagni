@@ -1,5 +1,6 @@
 <?php
 
+use Brick\Math\BigInteger;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,7 +21,7 @@ return new class extends Migration
             $table->string('discount_price')->nullable();
             $table->string('availability');
             $table->string('shipping')->nullable();
-            $table->string('seller');
+            $table->unsignedBigInteger('seller');
             $table->string('weight')->nullable();
             $table->unsignedBigInteger('category')->nullable();
             $table->foreign('category')

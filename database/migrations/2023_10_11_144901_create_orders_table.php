@@ -28,12 +28,12 @@ return new class extends Migration
                         ->on('products')
                         ->onUpdate('cascade')
                         ->onDelete('cascade');
-            $table->unsignedBigInteger('seller')->nullable();
-            $table->foreign('seller')
-                        ->references('seller')
-                        ->on('products')
-                        ->onUpdate('cascade')
-                        ->onDelete('cascade');
+            $table->unsignedBigInteger('seller_id')->nullable();
+            // $table->foreign('seller_id')
+            //             ->references('seller')
+            //             ->on('products')
+            //             ->onUpdate('cascade')
+            //             ->onDelete('cascade');
             $table->string('product_name')->nullable();
             $table->integer('quantity')->nullable();
             $table->bigInteger('price')->nullable();
