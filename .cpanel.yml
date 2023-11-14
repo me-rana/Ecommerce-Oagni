@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/eshopxxy/subdomains/ecommerce.rana.eshopx.xyz
+    - /bin/cp * $DEPLOYPATH
