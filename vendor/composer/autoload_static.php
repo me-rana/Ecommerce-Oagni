@@ -367,8 +367,8 @@ class ComposerStaticInit104df2e35869688d1e3bbd449df60da6
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -602,6 +602,8 @@ class ComposerStaticInit104df2e35869688d1e3bbd449df60da6
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminController.php',
         'App\\Http\\Controllers\\AuthRedirectController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthRedirectController.php',
+        'App\\Http\\Controllers\\Base\\Blog' => __DIR__ . '/../..' . '/app/Http/Controllers/Base/Blog.php',
+        'App\\Http\\Controllers\\Base\\Shop' => __DIR__ . '/../..' . '/app/Http/Controllers/Base/Shop.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\CustomerController' => __DIR__ . '/../..' . '/app/Http/Controllers/CustomerController.php',
         'App\\Http\\Controllers\\FrontendController' => __DIR__ . '/../..' . '/app/Http/Controllers/FrontendController.php',

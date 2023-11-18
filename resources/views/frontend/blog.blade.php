@@ -83,7 +83,7 @@
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="blog__item">
                                     <div class="blog__item__pic">
-                                        <img src="../storage/image/{{$post->image_path}}" alt="">
+                                        <img src="../storage/image/{{$post->image_path}}" alt="" height="200px">
                                     </div>
                                     <div class="blog__item__text">
                                         <ul>
@@ -96,17 +96,20 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                            @endforeach
 
+                            @endforeach
+                        </div>
                             @else
                             <div class="col-lg-12 py-3">
                                 <center><h3>Nothing Found</h3>
                                     <p>We could not found any posts.</p></center>
                             </div>
                         @endif
+
                         <div class="col-lg-12">
-                            {{$posts->links('pagination::bootstrap-5')}}
+                            @if (Route::currentRouteName() == 'blog')
+                                {{$posts->links('pagination::bootstrap-5')}}
+                            @endif
                         </div>
                     </div>
                 </div>

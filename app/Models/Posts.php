@@ -17,4 +17,7 @@ class Posts extends Model
             			    ]
         		];
     	}
+    public function getUser(){
+        return $this->belongsTo(User::class, 'writer', 'id');
+    }
 }

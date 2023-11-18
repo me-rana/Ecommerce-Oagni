@@ -16,6 +16,8 @@ return array(
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\AdminController' => $baseDir . '/app/Http/Controllers/AdminController.php',
     'App\\Http\\Controllers\\AuthRedirectController' => $baseDir . '/app/Http/Controllers/AuthRedirectController.php',
+    'App\\Http\\Controllers\\Base\\Blog' => $baseDir . '/app/Http/Controllers/Base/Blog.php',
+    'App\\Http\\Controllers\\Base\\Shop' => $baseDir . '/app/Http/Controllers/Base/Shop.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\CustomerController' => $baseDir . '/app/Http/Controllers/CustomerController.php',
     'App\\Http\\Controllers\\FrontendController' => $baseDir . '/app/Http/Controllers/FrontendController.php',

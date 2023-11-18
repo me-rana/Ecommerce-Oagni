@@ -89,9 +89,6 @@
     <!-- Banner End -->
     @php $i = 1; @endphp
 
-
-    {{print_r(json_decode($latest_Products[1]->id));}}
-
     <!-- Latest Product Section Begin -->
     <section class="latest-product spad">
         <div class="container">
@@ -118,6 +115,21 @@
                                 @if (count($latest_Productsx) > 0)
                                 <div class="latest-prdouct__slider__item">
                                      @foreach ($latest_Productsx as $latest_Productx)
+                                        <a href="../product/{{$latest_Productx->slug}}" class="latest-product__item">
+                                            <div class="latest-product__item__pic">
+                                                <img src="../storage/image/{{$latest_Productx->image_path}}" alt="">
+                                            </div>
+                                            <div class="latest-product__item__text">
+                                                <h6>{{$latest_Productx->pro_name}}</h6>
+                                                <span>{{$latest_Productx->discount_price ?? $latest_Productx->orginal_price}} BDT</span>
+                                            </div>
+                                        </a>
+                                    @endforeach
+                                </div>
+                                @endif
+                                @if (count($latest_Productsy) > 0)
+                                <div class="latest-prdouct__slider__item">
+                                     @foreach ($latest_Productsy as $latest_Productx)
                                         <a href="../product/{{$latest_Productx->slug}}" class="latest-product__item">
                                             <div class="latest-product__item__pic">
                                                 <img src="../storage/image/{{$latest_Productx->image_path}}" alt="">
@@ -169,6 +181,21 @@
                                 @endforeach
                             </div>
                             @endif
+                            @if (count($latest_Productsy) > 0)
+                            <div class="latest-prdouct__slider__item">
+                                 @foreach ($latest_Productsy as $latest_Productx)
+                                    <a href="../product/{{$latest_Productx->slug}}" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img src="../storage/image/{{$latest_Productx->image_path}}" alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>{{$latest_Productx->pro_name}}</h6>
+                                            <span>{{$latest_Productx->discount_price ?? $latest_Productx->orginal_price}} BDT</span>
+                                        </div>
+                                    </a>
+                                @endforeach
+                            </div>
+                            @endif
 
                         </div>
                     </div>
@@ -207,6 +234,21 @@
                                 @endforeach
                             </div>
                             @endif
+                            @if (count($latest_Productsy) > 0)
+                            <div class="latest-prdouct__slider__item">
+                                 @foreach ($latest_Productsy as $latest_Productx)
+                                    <a href="../product/{{$latest_Productx->slug}}" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img src="../storage/image/{{$latest_Productx->image_path}}" alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>{{$latest_Productx->pro_name}}</h6>
+                                            <span>{{$latest_Productx->discount_price ?? $latest_Productx->orginal_price}} BDT</span>
+                                        </div>
+                                    </a>
+                                @endforeach
+                            </div>
+                            @endif
 
                     </div>
                 </div>
@@ -231,7 +273,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-6">
                         <div class="blog__item">
                             <div class="blog__item__pic">
-                                <img src="../storage/image/{{$post_latest->image_path}}" alt="">
+                                <img src="../storage/image/{{$post_latest->image_path}}" alt="" height="200px">
                             </div>
                             <div class="blog__item__text">
                                 <ul>

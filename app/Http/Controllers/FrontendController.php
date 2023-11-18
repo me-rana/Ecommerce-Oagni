@@ -2,55 +2,51 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-use App\Models\Settings;
-use App\Models\Contact;
-use App\Models\pCategories;
-use App\Models\bCategories;
-use App\Models\Posts;
-use App\Models\Products;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Posts;
+use App\Models\Contact;
+use App\Models\Products;
+use App\Models\Settings;
+use App\Models\bCategories;
+use App\Models\pCategories;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Base\Blog;
+use App\Http\Controllers\Base\Shop;
+use Illuminate\Support\Facades\Auth;
 
 
 class FrontendController extends Controller
 {
 
-    // public function support(){
-    //     if(!is_null(Settings::find(1))){
-    //         $settings =  Settings::find(1)->first();
-    //      }
-    //     else{
-    //         $settings = null;
-    //     }
-    //     $productCategories = pCategories::all();
-    //     $data = compact('settings','productCategories');
-    // }
-    //Index
-    public function home(){
-        $productCategories = pCategories::all();
-        $noOfProducts = 3;
-        if(Auth::check()){
-            $carts = Cart::where('uid',Auth::user()->id)->get();
-        }
-        else{
-            $carts = null;
-        }
-        $products = Products::where('availability','In Stock')->latest()->limit(8)->get();
-        $latest_Products = Products::latest()->limit(3)->get();
-        $latest_Productsx = Products::latest()->limit(3)->offset(3)->get();
-        $posts_latest = Posts::where('status',1)->latest()->limit(3)->get();
+    protected function support(){
         if(!is_null(Settings::find(1))){
             $settings =  Settings::find(1)->first();
          }
         else{
             $settings = null;
         }
-        return view('frontend.home',compact('settings', 'productCategories','latest_Products','latest_Productsx','posts_latest','products','carts'));
+        $productCategories = pCategories::all();
+        if(Auth::check()){
+            $carts = Cart::where('uid',Auth::user()->id)->get();
+        }
+        else{
+            $carts = null;
+        }
+        $data = compact('settings','productCategories', 'carts');
+        return $data;
     }
-
+    //Index
+    public function home(){
+        $data = $this->support();
+        $shop = new Shop();
+        $blog = new Blog();
+        $products = $shop->fixedread();
+        $posts_latest = $blog->latest_posts(3);
+        $latest_list = $shop->latest_list(3,3);
+        return view('frontend.home', compact('products','posts_latest'))->with($data)->with($latest_list);
+    }
 
     //Delete Cart
     protected function deleteCart($id){
@@ -67,170 +63,79 @@ class FrontendController extends Controller
 
     //Shop
     public function shop(){
-        if(Auth::check()){
-            $carts = Cart::where('uid',Auth::user()->id)->get();
-        }
-        else{
-            $carts = null;
-        }
-        $productCategories = pCategories::all();
-        $noOfProducts = 12;
-        $disproducts = Products::where('availability','In Stock')->where('discount_price','!=',null)->join('p_categories','products.category','p_categories.id')->select('products.*','p_categories.pname')->limit(12)->latest()->get();
-        $products = Products::where('availability','In Stock')->latest()->paginate($noOfProducts);
-        $products_latest = Products::latest()->limit(4)->get();
-        if(!is_null(Settings::find(1))){
-            $settings =  Settings::find(1)->first();
-         }
-        else{
-            $settings = null;
-        }
-        return view('frontend.shop',compact('carts','settings','productCategories', 'products', 'disproducts','products_latest'))->with('i',(request()->input('page',1)-1)*$noOfProducts);
+        $data = $this->Support();
+        $perpage = 12;
+        $shop = new Shop();
+        $disproducts = $shop->discount_products(12);
+        $products = $shop->read($perpage);
+        $latest_list = $shop->latest_list(4,0);
+        return view('frontend.shop',compact('products', 'disproducts'))->with($data)->with($latest_list)->with('i',(request()->input('page',1)-1)*$perpage);
     }
 
     //Product Categories
     public function categoryAction($purl){
-        if(Auth::check()){
-            $carts = Cart::where('uid',Auth::user()->id)->get();
-        }
-        else{
-            $carts = null;
-        }
-        $productCategories = pCategories::all();
-        $noOfProducts = 12;
-
-        $products = Products::where('availability','In Stock')->join('p_categories','products.category','p_categories.id')->where('purl',$purl)->select('products.*','p_categories.purl')->latest()->paginate($noOfProducts);
-        $products_latest = Products::latest()->limit(4)->get();
-        if(!is_null(Settings::find(1))){
-            $settings =  Settings::find(1)->first();
-         }
-        else{
-            $settings = null;
-        }
-        return view('frontend.search',compact('carts','settings','productCategories', 'products', 'products_latest'))->with('i',(request()->input('page',1)-1)*$noOfProducts);
+        $shop = new Shop();
+        $data = $this->support();
+        $category = $shop->categorywise($purl);
+        $latest_list = $shop->latest_list(8,0);
+        return view('frontend.search',compact('category'))->with($data)->with($latest_list);
     }
 
     protected function productDetails($slug){
-        $products = Products::limit(4)->latest()->get();
-        if(Auth::check()){
-            $carts = Cart::where('uid',Auth::user()->id)->get();
-        }
-        else{
-            $carts = null;
-        }
-        if(!is_null(Settings::find(1))){
-            $settings =  Settings::find(1)->first();
-         }
-        else{
-            $settings = null;
-        }
-        $productCategories = pCategories::all();
-        $product = Products::where('slug',$slug)->join('p_categories','products.category','p_categories.id')->where('availability','In Stock')->select('products.*','p_categories.pname')->first();
-        return view('frontend.single-product',compact('carts','product','productCategories','settings','products'));
+        $shop = new Shop();
+        $latest_list = $shop->latest_list(4, 0);
+        $products = $latest_list['latest_Products'];
+        $data = $this->support();
+        $product = $shop->read_one($slug);
+        return view('frontend.single-product',compact('product','products'))->with($data);
     }
 
     //Blog
     public function blog(){
-        if(Auth::check()){
-            $carts = Cart::where('uid',Auth::user()->id)->get();
-        }
-        else{
-            $carts = null;
-        }
-        $productCategories = pCategories::all();
-        $blogCategories = bCategories::all();
-        $noOfPosts = 20;
-        $posts = Posts::where('status',1)->latest()->paginate($noOfPosts);
-        $posts_latest = Posts::where('status',1)->latest()->limit(3)->get();
-        if(!is_null(Settings::find(1))){
-            $settings =  Settings::find(1)->first();
-         }
-        else{
-            $settings = null;
-        }
-        return view('frontend.blog',compact('carts','settings','productCategories','blogCategories','posts','posts_latest'))->with('i',(request()->input('page',1)-1)*$noOfPosts);
+        $perpage = 20;
+        $blog = new Blog();
+        $data = $this->support();
+        $blogCategories = $blog->categories();
+        $posts = $blog->read($perpage);
+        $posts_latest = $blog->latest_posts(3);
+        return view('frontend.blog',compact('blogCategories','posts','posts_latest'))->with($data)->with('i',(request()->input('page',1)-1)*$perpage);
     }
 
     //Search Blog Posts
     public function blogSearch(Request $req){
-        if(Auth::check()){
-            $carts = Cart::where('uid',Auth::user()->id)->get();
-        }
-        else{
-            $carts = null;
-        }
-        $productCategories = pCategories::all();
-        $blogCategories = bCategories::all();
-        $noOfPosts = 12;
-        $posts = Posts::where('status',1)->where('title','LIKE','%'.$req->title.'%')->latest()->paginate($noOfPosts);
-        $posts_latest = Posts::where('status',1)->latest()->limit(3)->get();
-        if(!is_null(Settings::find(1))){
-            $settings =  Settings::find(1)->first();
-         }
-        else{
-            $settings = null;
-        }
-        return view('frontend.blog',compact('carts','settings','productCategories','blogCategories','posts','posts_latest'))->with('i',(request()->input('page',1)-1)*$noOfPosts);
+        $perpage = 12;
+        $blog = new Blog();
+        $data = $this->support();
+        $blogCategories = $blog->categories();
+        $posts = $blog->searchResult($req->title, $perpage);
+        $posts_latest = $blog->latest_posts(3);
+        return view('frontend.blog',compact('blogCategories','posts','posts_latest'))->with($data)->with('i',(request()->input('page',1)-1)*$perpage);
     }
     //Blog Category Action
     public function blogCategoryAction($curl){
-        if(Auth::check()){
-            $carts = Cart::where('uid',Auth::user()->id)->get();
-        }
-        else{
-            $carts = null;
-        }
-        $productCategories = pCategories::all();
-        $blogCategories = bCategories::all();
-        $noOfPosts = 12;
-        $posts = Posts::join('b_categories','posts.category','b_categories.id')->where('posts.status',1)->where('b_categories.curl',$curl)->select('posts.*','b_categories.curl')->latest()->paginate($noOfPosts);
-        $posts_latest = Posts::where('status',1)->latest()->limit(3)->get();
-        if(!is_null(Settings::find(1))){
-            $settings =  Settings::find(1)->first();
-         }
-        else{
-            $settings = null;
-        }
-        return view('frontend.blog',compact('carts','settings','productCategories','blogCategories','posts','posts_latest'))->with('i',(request()->input('page',1)-1)*$noOfPosts);
+        $blog = new Blog();
+        $data = $this->support();
+        $blogCategories = $blog->categories();
+        $category = $blog->category($curl);
+        $posts = $category->getposts;
+        $posts_latest = $blog->latest_posts(3);
+        return view('frontend.blog',compact('blogCategories','posts','posts_latest'))->with($data);
     }
 
     //Single Post
     public function singlePost($slug){
-        if(Auth::check()){
-            $carts = Cart::where('uid',Auth::user()->id)->get();
-        }
-        else{
-            $carts = null;
-        }
-
-        $post = Posts::where('slug',$slug)->join('users','posts.writer','users.id')->join('b_categories','posts.category','b_categories.id')->where('posts.id','!=',null)->select('posts.*','users.name','b_categories.cname')->first();
-        $productCategories = pCategories::all();
-        $latest_posts = Posts::latest()->limit(3)->get();
-        $blogCategories = bCategories::all();
-        if(!is_null(Settings::find(1))){
-            $settings =  Settings::find(1)->first();
-         }
-        else{
-            $settings = null;
-        }
-        return view('frontend.single-post',compact('latest_posts','carts','settings','productCategories','post','blogCategories'));
+        $blog = new Blog();
+        $data = $this->support();
+        $post = $blog->read_one($slug);
+        $latest_posts = $blog->latest_posts(3);
+        $blogCategories = $blog->categories();
+        return view('frontend.single-post',compact('latest_posts', 'post', 'blogCategories'))->with($data);
     }
 
     //Contact
     public function contact(){
-        if(Auth::check()){
-            $carts = Cart::where('uid',Auth::user()->id)->get();
-        }
-        else{
-            $carts = null;
-        }
-        $productCategories = pCategories::all();
-        if(!is_null(Settings::find(1))){
-            $settings =  Settings::find(1)->first();
-         }
-        else{
-            $settings = null;
-        }
-        return view('frontend.contact',compact('carts','settings','productCategories'));
+        $data = $this->support();
+        return view('frontend.contact')->with($data);
     }
     protected function contactSubmission(Request $req){
 
@@ -240,33 +145,23 @@ class FrontendController extends Controller
             'message' => 'required'
 
         ]);
+        $list = ['name', 'email', 'message'];
         $contact = new Contact;
-        $contact->name = $req->name;
-        $contact->email = $req->email;
-        $contact->message = $req->message;
+        foreach ($list as $row){
+            $contact->$row = $req->$row;
+        }
         $contact->save();
-
         return redirect()->route('contact')->with('message','Message sent successfully');
 
     }
 
     //Single Product
     public function singleProduct(){
-        $products = Products::limit(4)->latest()->get();
-        if(Auth::check()){
-            $carts = Cart::where('uid',Auth::user()->id)->get();
-        }
-        else{
-            $carts = null;
-        }
-        $productCategories = pCategories::all();
-        if(!is_null(Settings::find(1))){
-            $settings =  Settings::find(1)->first();
-         }
-        else{
-            $settings = null;
-        }
-        return view('frontend.single-product',compact('carts','settings','productCategories','products'));
+        $shop = new Shop();
+        $latest_list = $shop->latest_list(4, 0);
+        $products =  $list['latest_Products'];
+        $data = $this->support();
+        return view('frontend.single-product',compact('products'))->with($data);
     }
 
     //Checkout

@@ -18,4 +18,7 @@ class bCategories extends Model
             			    ]
         		];
     	}
-}
+        public function getposts(){
+            return $this->hasMany(Posts::class,'category','id');
+        }
+    }

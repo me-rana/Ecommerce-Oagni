@@ -9,7 +9,7 @@
                     <div class="blog__details__hero__text">
                         <h2>{{$post->title ?? ''}}</h2>
                         <ul>
-                            <li>By {{$post->name ?? ''}}</li>
+                            <li>By {{$post->getUser->name ?? ''}}</li>
                             <li>{{$post->created_at->format('j F, Y')}}</li>
                             <li>8 Comments</li>
                         </ul>
@@ -91,7 +91,7 @@
                                         <img src="../storage/image/user.png" alt="">
                                     </div>
                                     <div class="blog__details__author__text">
-                                        <h6>{{$post->name}}</h6>
+                                        <h6>{{$post->getUser->name}}</h6>
                                         <span>Writer</span>
                                     </div>
                                 </div>

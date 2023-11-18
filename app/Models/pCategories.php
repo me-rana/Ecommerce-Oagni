@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Products;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class pCategories extends Model
 {
@@ -17,4 +19,8 @@ class pCategories extends Model
             			    ]
         		];
     	}
+
+    public function getproducts(){
+        return $this->hasMany(Products::class,'category','id');
+    }
 }

@@ -127,8 +127,8 @@
                                 <h4>Latest Products</h4>
                                 <div class="latest-product__slider owl-carousel">
                                     <div class="latest-prdouct__slider__item">
-                                        @if (count($products_latest) > 0)
-                                            @foreach ($products_latest as $product_latest)
+                                        @if (count($latest_Products) > 0)
+                                            @foreach ($latest_Products as $product_latest)
                                             <a href="#" class="latest-product__item">
                                                 <div class="latest-product__item__pic">
                                                     <img width="100px" src="../storage/image/{{$product_latest->image_path}}" alt="">
@@ -163,7 +163,7 @@
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <div class="filter__found">
-                                    <h6><span>{{$products->count() ?? 0}}</span> Products found</h6>
+                                    <h6><span>{{$category->getproducts()->count() ?? 0}}</span> Products found</h6>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-3">
@@ -175,8 +175,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        @if (count($products) > 0)
-                            @foreach ($products as $product)
+                        @if (count($category->getproducts) > 0)
+                            @foreach ($category->getproducts as $product)
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
                                     <div class="product__item__pic set-bg" data-setbg="../storage/image/{{$product->image_path}}">
@@ -199,7 +199,7 @@
                         @endif
 
                     </div>
-                    {{$products->links('pagination::bootstrap-5')}}
+                    {{ $category->getproducts()->paginate(12)->links('pagination::bootstrap-5') }}
 
 
                 </div>

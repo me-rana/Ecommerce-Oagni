@@ -127,8 +127,8 @@
                                 <h4>Latest Products</h4>
                                 <div class="latest-product__slider owl-carousel">
                                     <div class="latest-prdouct__slider__item">
-                                        @if (count($products_latest) > 0)
-                                            @foreach ($products_latest as $product_latest)
+                                        @if (count($latest_Products) > 0)
+                                            @foreach ($latest_Products as $product_latest)
                                             <a href="#" class="latest-product__item">
                                                 <div class="latest-product__item__pic">
                                                     <img src="../storage/image/{{$product_latest->image_path}}" alt="">
