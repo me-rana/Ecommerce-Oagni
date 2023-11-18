@@ -40,4 +40,8 @@ class Shop extends Controller
         $categorywise = pCategories::where('purl',$catName)->with('getproducts')->latest()->first();
         return $categorywise;
     }
+    public function searchResult($search_keyword, $perpage){
+        $results = Products::where('pro_name','LIKE','%'.$search_keyword.'%')->where('availability','In Stock')->latest()->paginate($perpage);
+        return $results;
+    }
 }

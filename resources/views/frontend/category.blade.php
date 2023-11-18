@@ -163,7 +163,7 @@
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <div class="filter__found">
-                                    <h6><span>{{$products->count() ?? 0}}</span> Products found</h6>
+                                    <h6><span>{{$category->getproducts()->count() ?? 0}}</span> Products found</h6>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-3">
@@ -175,8 +175,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        @if (count($products) > 0)
-                            @foreach ($products as $product)
+                        @if (count($category->getproducts) > 0)
+                            @foreach ($category->getproducts as $product)
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
                                     <div class="product__item__pic set-bg" data-setbg="../storage/image/{{$product->image_path}}">
@@ -199,7 +199,7 @@
                         @endif
 
                     </div>
-                    {{ $products->links('pagination::bootstrap-5') }}
+                    {{ $category->getproducts()->paginate(12)->links('pagination::bootstrap-5') }}
 
 
                 </div>

@@ -78,7 +78,7 @@ class FrontendController extends Controller
         $data = $this->support();
         $category = $shop->categorywise($purl);
         $latest_list = $shop->latest_list(8,0);
-        return view('frontend.search',compact('category'))->with($data)->with($latest_list);
+        return view('frontend.category',compact('category'))->with($data)->with($latest_list);
     }
 
     protected function productDetails($slug){
@@ -332,23 +332,12 @@ class FrontendController extends Controller
     }
 
     protected function searchResult(Request $req){
-        $noOfProducts = 12;
-        if(Auth::check()){
-            $carts = Cart::where('uid',Auth::user()->id)->get();
-        }
-        else{
-            $carts = null;
-        }
-        $productCategories = pCategories::all();
-        if(!is_null(Settings::find(1))){
-            $settings =  Settings::find(1)->first();
-         }
-        else{
-            $settings = null;
-        }
-        $products_latest = Products::latest()->limit(4)->get();
-        $products = Products::where('pro_name','LIKE','%'.$req->product_name.'%')->where('availability','In Stock')->latest()->paginate($noOfProducts);
-        return view('frontend.search',compact('products','carts','settings','productCategories','products_latest'))->with('i',(request()->input('page',1)-1)*$noOfProducts);
+        $perpage = 12;
+        $shop = new Shop();
+        $data = $this->support();
+        $latest_list = $shop->latest_list(3, 0);
+        $products = $shop->searchResult($req->product_name, $perpage);
+        return view('frontend.search',compact('products'))->with($data)->with($latest_list)->with('i',(request()->input('page',1)-1)*$perpage);
     }
 
 }
