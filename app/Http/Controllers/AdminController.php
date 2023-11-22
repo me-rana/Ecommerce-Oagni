@@ -2,25 +2,54 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-
-use Illuminate\Http\Request;
-use App\Models\Settings;
-use App\Models\bCategories;
-use App\Models\pCategories;
+use App\Models\User;
+use App\Models\Order;
 use App\Models\Posts;
 use App\Models\Products;
-use App\Models\User;
-use App\Models\UserData;
-use App\Models\Order;
+use App\Models\Settings;
+use App\Models\bCategories;
 use App\Models\OrderUpdate;
+use App\Models\pCategories;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Base\Blog;
+use App\Http\Controllers\Base\Shop;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
-use File;
 
 
 class AdminController extends Controller
 {
-    //Dashboard
+
+    //Extend Class
+    protected function Blog(){
+        $blog = new Blog();
+        return $blog;
+    }
+    protected function Shop(){
+        $shop = new Shop();
+        return $shop;
+    }
+      //
+      protected function image_store($req_file){
+        if($req_file != null){
+            $img_name = $req_file->getClientOriginalName();
+            $image = date("Y-m-d_H-i-s")."_".rand(11111,99999).$img_name;
+            $req_file->storeAs('public/image', $image);
+            return 'storage/post/'.$image;
+        }
+    }
+    protected function image_delete($file){
+        $image_path = $file; 
+        if (File::exists($image_path)) {
+            File::delete($image_path);
+        }
+        return 0;
+    }
+
+
+
+    //Dashboard----------------------------------------------------------------------------------------->
     protected function home(){
         return view('backend.admin.dashboard');
     }
@@ -36,47 +65,26 @@ class AdminController extends Controller
     }
 
     protected function settings_submission(Request $req){
+        $items = ['name', 'phone_no', 'email', 'facebook', 'linkdin', 'twitter', 'pinterest', 'address', 'office_time', 'copyright'];
         if(is_null(Settings::find(1))){
             $settings = new Settings;
-            $settings->name = $req->name;
-            $settings->phone_no = $req->phone_no;
-            $settings->email = $req->email;
-            $settings->facebook = $req->facebook;
-            $settings->linkdin = $req->linkdin;
-            $settings->twitter = $req->twitter;
-            $imgName = $req->file('image')->getClientOriginalName();
-            $image = rand(11111, 99999) . $imgName;
-            $req->file('image')->storeAs('public/image', $image);
-            $settings->logo_path = $image;
-            $settings->pinterest = $req->pinterest;
-            $settings->address = $req->address;
-            $settings->office_time = $req->office_time;
-            $settings->copyright = $req->copyright;
+            foreach ($items as $item){
+                $settings->item = $req->item;    
+            }
+            if(!is_null($req->file('image'))){
+                $this->image_store($req->file('image'));
+            }
             $settings->save();
         }
         else{
             $settings = Settings::find(1);
-            $settings->name = $req->name;
-            $settings->phone_no = $req->phone_no;
-            $settings->email = $req->email;
-            if($req->file('image') != null){
-                // $image_path = public_path('public/image', $blogCategory->cimage_path);
-                $image_path = 'storage/image/'.$settings->logo_path;
-                if (File::exists($image_path)) {
-                    File::delete($image_path);
-                }
-                $imgName = $req->file('image')->getClientOriginalName();
-                $image = rand(11111, 99999) . $imgName;
-                $req->file('image')->storeAs('public/image', $image);
-                $settings->logo_path = $image;
+            foreach ($items as $item){
+                $settings->item = $req->item;    
             }
-            $settings->facebook = $req->facebook;
-            $settings->linkdin = $req->linkdin;
-            $settings->twitter = $req->twitter;
-            $settings->pinterest = $req->pinterest;
-            $settings->address = $req->address;
-            $settings->office_time = $req->office_time;
-            $settings->copyright = $req->copyright;
+            if(!is_null($req->file('image'))){
+                $this->image_delete('storage/image/'.$settings->image_path);
+                $this->image_store($req->file('image'));
+            }
             $settings->update();
 
         }
@@ -94,9 +102,9 @@ class AdminController extends Controller
         ]);
     }
     protected function blogCategories(){
-        $cat_per = 20;
-        $categories = bCategories::rightJoin('users','b_categories.cuid','users.id')->where('b_categories.id','!=',null)->select('b_categories.*','users.name')->latest()->paginate($cat_per);
-        return view ('backend.admin.blog.categories',compact('categories'))->with('i',(request()->input('page',1)-1)*$cat_per);
+        $blog = $this->Blog();
+        $categories = $blog->categories();
+        return view ('backend.admin.blog.categories',compact('categories'));
 
     }
     protected function blogAddCategory(){
@@ -118,46 +126,15 @@ class AdminController extends Controller
         }
     }
     protected function blogAddCategorySubmission(Request $req){
-        $blogCategory = new bCategories;
-        $blogCategory->cname = $req->cname;
-        $blogCategory->curl = $req->curl;
-        if($req->file('image') == null){
-
-        }
-        else{
-            $imgName = $req->file('image')->getClientOriginalName();
-            $image = rand(11111, 99999) . $imgName;
-            $req->file('image')->storeAs('public/image', $image);
-            $blogCategory->cimage_path = $image;
-        }
-        $blogCategory->cdescription = $req->cdescription;
-        $blogCategory->cuid = Auth::user()->id;
-        $blogCategory->save();
-
+        $items = ['cname', 'curl', 'cdescription'];
+        $category = $this->Blog();
+        $category->category_submission($req, $items);
         return redirect()->route('admin.blog.categories')->with('message','New Category added Successfully.');
     }
     protected function blogUpdateCategorySubmission(Request $req,$id){
-        $blogCategory = bCategories::find($id);
-        $blogCategory->cname = $req->cname;
-        $blogCategory->curl = $req->curl;
-        if($req->file('image') == null){
-
-        }
-        else{
-            // $image_path = public_path('public/image', $blogCategory->cimage_path);
-            $image_path = 'storage/image/'.$blogCategory->cimage_path;
-            if (File::exists($image_path)) {
-                File::delete($image_path);
-            }
-            $url = $req->file('image')->getClientOriginalName();
-            $image = rand(11111, 99999) . $url;
-            $req->file('image')->storeAs('public/image', $image);
-            $blogCategory->cimage_path = $image;
-
-        }
-        $blogCategory->cdescription = $req->cdescription;
-        $blogCategory->cuid = Auth::user()->id;
-        $blogCategory->update();
+        $items = ['cname', 'curl', 'cdescription'];
+        $category = $this->Blog();
+        $category->category_resubmission($id, $req, $items );
         return redirect()->route('admin.blog.categories')->with('message','The Category updated Successfully.');
     }
 
