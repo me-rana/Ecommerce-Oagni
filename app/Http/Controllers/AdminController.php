@@ -220,7 +220,7 @@ class AdminController extends Controller
         $perpage = 20;
         $shop = $this->Shop();
         $categories = $shop->read_category($perpage);
-        return view ('backend.admin.categories',compact('categories'))->with('i',(request()->input('page',1)-1)*$cat_per);
+        return view ('backend.admin.categories',compact('categories'))->with('i',(request()->input('page',1)-1)*$perpage);
     }
     protected function newCategory(){
         $title = 'New Category';
