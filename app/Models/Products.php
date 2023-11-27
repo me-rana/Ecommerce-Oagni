@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Products extends Model
 {
@@ -18,4 +19,7 @@ class Products extends Model
                     ]
         ];
 }
+    public function getSeller() : BelongsTo {
+        return $this->belongsTo(User::class, 'seller', 'id');
+    }
 }

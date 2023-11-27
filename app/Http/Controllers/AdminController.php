@@ -66,10 +66,10 @@ class AdminController extends Controller
 
     protected function settings_submission(Request $req){
         $items = ['name', 'phone_no', 'email', 'facebook', 'linkdin', 'twitter', 'pinterest', 'address', 'office_time', 'copyright'];
-        if(is_null(Settings::find(1))){
+        if(is_null(Settings::where('id', 1)->first())){
             $settings = new Settings;
             foreach ($items as $item){
-                $settings->item = $req->item;    
+                $settings->$item = $req->$item;    
             }
             if(!is_null($req->file('image'))){
                 $this->image_store($req->file('image'));
@@ -77,9 +77,9 @@ class AdminController extends Controller
             $settings->save();
         }
         else{
-            $settings = Settings::find(1);
+            $settings = Settings::where('id', 1)->first();
             foreach ($items as $item){
-                $settings->item = $req->item;    
+                $settings->$item = $req->$item;    
             }
             if(!is_null($req->file('image'))){
                 $this->image_delete('storage/image/'.$settings->image_path);
@@ -128,25 +128,20 @@ class AdminController extends Controller
     protected function blogAddCategorySubmission(Request $req){
         $items = ['cname', 'curl', 'cdescription'];
         $category = $this->Blog();
-        $category->category_submission($req, $items);
+        $category->category_submission($req, $items, Auth::user()->id);
         return redirect()->route('admin.blog.categories')->with('message','New Category added Successfully.');
     }
     protected function blogUpdateCategorySubmission(Request $req,$id){
         $items = ['cname', 'curl', 'cdescription'];
         $category = $this->Blog();
-        $category->category_resubmission($id, $req, $items );
+        $category->category_resubmission($id, $req, $items, Auth::user()->id );
         return redirect()->route('admin.blog.categories')->with('message','The Category updated Successfully.');
     }
 
     //Delete Blog Categories
     protected function blogDeleteCategory($id){
-        $blogCategory = bCategories::find($id);
-        // $image_path = public_path('public/image', $blogCategory->cimage_path);
-        $image_path = 'storage/image/'.$blogCategory->cimage_path;
-        if (File::exists($image_path)) {
-            File::delete($image_path);
-        }
-        $blogCategory->delete();
+        $category = new Blog();
+        $category->delete_category($id);
         return redirect()->route('admin.blog.categories')->with('message','The Category deleted Successfully.');
     }
 
@@ -160,9 +155,10 @@ class AdminController extends Controller
         ]);
     }
     protected function posts(){
-        $cat_per = 20;
-        $posts = Posts::rightJoin('users','posts.writer','users.id')->join('b_categories','posts.category','b_categories.id')->where('posts.id','!=',null)->select('posts.*','users.name','b_categories.cname')->latest()->paginate($cat_per);
-        return view ('backend.admin.blog.posts',compact('posts'))->with('i',(request()->input('page',1)-1)*$cat_per);
+        $perpage = 20;
+        $post = new Blog();
+        $posts = $post->admin_read($perpage);
+        return view ('backend.admin.blog.posts',compact('posts'))->with('i',(request()->input('page',1)-1)*$perpage);
     }
     protected function addPost(){
         $title = 'Add a Post';
@@ -172,22 +168,9 @@ class AdminController extends Controller
         return view('backend.admin.blog.new-post')->with($data);
     }
     protected function postSubmission(Request $req){
-        $post = new Posts;
-        $post->title = $req->title;
-        $post->slug = $req->slug;
-        $post->content = $req->content;
-        if($req->file('image') != null){
-            $imgName = $req->file('image')->getClientOriginalName();
-            $image = rand(11111, 99999) . $imgName;
-            $req->file('image')->storeAs('public/image', $image);
-            $post->image_path = $image;
-        }
-        $post->writer = Auth::user()->id;
-        $post->tag = $req->tag;
-        $post->status = $req->status;
-        $post->category = $req->category;
-        $post->save();
-
+        $items = ['title', 'slug', 'content', 'tag', 'status', 'category'];
+        $blog = new Blog();
+        $create = $blog->create($req, $items, Auth::user()->id);
         return redirect()->route('admin.blog.posts')->with('message','The Post added Successfully');
     }
 
@@ -198,39 +181,23 @@ class AdminController extends Controller
         }
         else{
         $title = 'Update Content of the Post';
+        $post_id = $id;
         $submission = null;
         $categories = bCategories::all();
-        $data = compact('title','submission','categories','getPost');
+        $data = compact('title','submission','categories','getPost','post_id');
         return view('backend.admin.blog.new-post')->with($data);
         }
     }
-    protected function postSubmissionUpdate(Request $req,$id){
-        $post = Posts::find($id);
-        $post->title = $req->title;
-        $post->slug = $req->slug;
-        $post->content = $req->content;
-        if($req->file('image') != null){
-            // $image_path = public_path('public/image', $blogCategory->cimage_path);
-            $image_path = 'storage/image/'.$post->image_path;
-            if (File::exists($image_path)) {
-                File::delete($image_path);
-            }
-            $imgName = $req->file('image')->getClientOriginalName();
-            $image = rand(11111, 99999) . $imgName;
-            $req->file('image')->storeAs('public/image', $image);
-            $post->image_path = $image;
-        }
-        $post->writer = Auth::user()->id;
-        $post->tag = $req->tag;
-        $post->status = $req->status;
-        $post->category = $req->category;
-        $post->update();
-
-        return redirect()->route('admin.blog.posts')->with('message','The Post updated Successfully');
+    protected function postSubmissionUpdate(Request $req, $id){
+        $items = ['title', 'slug', 'content', 'tag', 'status', 'category'];
+        $post_id = $id;
+        $blog = new Blog();
+        $blog->update($post_id , $req, $items, Auth::user()->id);
+        return redirect()->back()->with('message','The Post updated Successfully');
     }
     protected function deletePost($id){
-        $post = Posts::find($id);
-        $image_path = 'storage/image/'.$post->image_path;
+        $post = Posts::where('id', $id)->first();
+        $image_path = $post->image_path;
         if (File::exists($image_path)) {
             File::delete($image_path);
         }
@@ -250,8 +217,9 @@ class AdminController extends Controller
     }
 
     protected function productCategories(){
-        $cat_per = 20;
-        $categories = pCategories::rightJoin('users','p_categories.puid','users.id')->where('p_categories.id','!=',null)->select('p_categories.*','users.name')->latest()->paginate($cat_per);
+        $perpage = 20;
+        $shop = $this->Shop();
+        $categories = $shop->read_category($perpage);
         return view ('backend.admin.categories',compact('categories'))->with('i',(request()->input('page',1)-1)*$cat_per);
     }
     protected function newCategory(){
@@ -269,51 +237,22 @@ class AdminController extends Controller
     }
 
     protected function categorySubmission(Request $req){
-        $category = new pCategories;
-        $category->pname = $req->pname;
-        $category->purl = $req->purl;
-        if($req->file('image') != null){
-            $imgName = $req->file('image')->getClientOriginalName();
-            $image = rand(11111, 99999) . $imgName;
-            $req->file('image')->storeAs('public/image', $image);
-            $category->pimage_path = $image;
-        }
-        $category->pdescription = $req->pdescription;
-        $category->puid = Auth::user()->id;
-        $category->save();
-
+        $items = ['pname', 'purl', 'pdescription'];
+        $shop = $this->Shop();
+        $shop->submission_category($req, $items, Auth::user()->id);
         return redirect()->route('admin.categories')->with('message','New Category added Successfully.');
     }
-
+  
     protected function categoryResubmission(Request $req,$id){
-        $category = pCategories::find($id);
-        $category->pname = $req->pname;
-        $category->purl = $req->purl;
-        if($req->file('image') != null){
-            // $image_path = public_path('public/image', $blogCategory->cimage_path);
-            $image_path = 'storage/image/'.$category->pimage_path;
-            if (File::exists($image_path)) {
-                File::delete($image_path);
-            }
-            $imgName = $req->file('image')->getClientOriginalName();
-            $image = rand(11111, 99999) . $imgName;
-            $req->file('image')->storeAs('public/image', $image);
-            $category->pimage_path = $image;
-        }
-        $category->pdescription = $req->pdescription;
-        $category->puid = Auth::user()->id;
-        $category->update();
+        $items = ['pname', 'purl', 'pdescription'];
+        $shop = $this->Shop();
+        $shop->resubmission_category($id, $req, $items, Auth::user()->id);
         return redirect()->route('admin.categories')->with('message','New Category added Successfully.');
     }
     //Delete Categories
     protected function deleteCategory($id){
-        $Category = pCategories::find($id);
-        // $image_path = public_path('public/image', $blogCategory->cimage_path);
-        $image_path = 'storage/image/'.$Category->pimage_path;
-        if (File::exists($image_path)) {
-            File::delete($image_path);
-        }
-        $Category->delete();
+        $shop = $this->Shop();
+        $category = $shop->delete_category($id);
         return redirect()->route('admin.categories')->with('message','The Category deleted Successfully.');
     }
 
@@ -326,9 +265,10 @@ class AdminController extends Controller
         ]);
     }
     protected function products(){
-        $cat_per = 20;
-        $products = Products::rightJoin('users','products.seller','users.id')->join('p_categories','products.category','p_categories.id')->where('products.id','!=',null)->select('products.*','users.name','p_categories.pname')->latest()->paginate($cat_per);
-        return view ('backend.admin.products',compact('products'))->with('i',(request()->input('page',1)-1)*$cat_per);
+        $perpage = 12;
+        $shop = $this->Shop();
+        $products = $shop->read($perpage);
+        return view ('backend.admin.products',compact('products'))->with('i',(request()->input('page',1)-1)*$perpage);
     }
     protected function addProduct(){
         $title = 'New Product';
@@ -338,25 +278,9 @@ class AdminController extends Controller
         return view('backend.admin.new-product')->with($data);
     }
     protected function addedProduct(Request $req){
-        $product = new Products;
-        $product->pro_name = $req->pro_name;
-        $product->slug = $req->slug;
-        if($req->file('image') != null){
-            $imgName = $req->file('image')->getClientOriginalName();
-            $image = rand(11111, 99999) . $imgName;
-            $req->file('image')->storeAs('public/image', $image);
-            $product->image_path = $image;
-        }
-        $product->category = $req->category;
-        $product->orginal_price = $req->orginal_price;
-        $product->discount_price = $req->discount_price;
-        $product->availability = $req->availability;
-        $product->shipping = $req->shipping;
-        $product->seller = Auth::user()->id;
-        $product->weight = $req->weight;
-        $product->description = $req->description;
-        $product->information = $req->information;
-        $product->save();
+        $items = ['pro_name', 'slug', 'category', 'orginal_price', 'discount_price', 'avilability', 'shipping', 'weight', 'description', 'information'];
+        $shop = $this->Shop();
+        $product = $shop->product_submitted($req, $items, Auth::user()->id);
         return redirect()->route('admin.products')->with('message','Product added Successfully');
     }
     protected function updateProduct($id){
@@ -374,41 +298,15 @@ class AdminController extends Controller
         }
     }
     protected function  updatedProduct(Request $req, $id){
-        $product = Products::find($id);
-        $product->pro_name = $req->pro_name;
-        $product->slug = $req->slug;
-        if($req->file('image') != null){
-        // $image_path = public_path('public/image', $blogCategory->cimage_path);
-        $image_path = 'storage/image/'.$product->image_path;
-        if (File::exists($image_path)) {
-            File::delete($image_path);
-        }
-            $imgName = $req->file('image')->getClientOriginalName();
-            $image = rand(11111, 99999) . $imgName;
-            $req->file('image')->storeAs('public/image', $image);
-            $product->image_path = $image;
-        }
-        $product->category = $req->category;
-        $product->orginal_price = $req->orginal_price;
-        $product->discount_price = $req->discount_price;
-        $product->availability = $req->availability;
-        $product->shipping = $req->shipping;
-        $product->seller = Auth::user()->id;
-        $product->weight = $req->weight;
-        $product->description = $req->description;
-        $product->information = $req->information;
-        $product->update();
+        $items = ['pro_name', 'slug', 'category', 'orginal_price', 'discount_price', 'avilability', 'shipping', 'weight', 'description', 'information'];
+        $shop = $this->Shop();
+        $product = $shop->product_resubmitted($id, $req, $items, Auth::user()->id);
         return redirect()->route('admin.products')->with('message','Product updated Successfully');
     }
 
     protected function deleteProduct($id){
-        $product = Products::find($id);
-        // $image_path = public_path('public/image', $blogCategory->cimage_path);
-        $image_path = 'storage/image/'.$product->image_path;
-        if (File::exists($image_path)) {
-            File::delete($image_path);
-        }
-        $product->delete();
+        $shop = $this->Shop();
+        $product =$shop->delete_product($id); 
         return redirect()->route('admin.products')->with('message','Product deleted Successfully.');
     }
 

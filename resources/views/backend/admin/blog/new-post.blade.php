@@ -11,6 +11,14 @@
               </ol>
             </nav>
           </div><!-- End Page Title -->
+          @if (session('message'))
+          <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <strong>Success!</strong> {{session('message')}}
+          </div>
+          @endif
+        
+
           <div class="container bg-white card">
             <div class="py-5">
                 <h4 class="text-center"><b>{{$title}}</b></h4>
@@ -23,6 +31,10 @@
                     <input type="text" name="title" id="title" value="{{$getPost->title ?? ''}}" class="form-control" placeholder="" aria-describedby="helpId">
                     <small id="helpId" class="text-muted">How remove dark circle from eyes</small>
                   </div>
+                  @if (Route::currentRouteName() == 'admin.blog.updatedPost')
+                    <input type="hidden" name="post_id" value="{{ $post_id }}">
+                  @endif
+                  
                   <div class="mb-3">
                     <label for="" class="form-label">Post Slug</label>
                     <input type="text" name="slug" id="slug" value="{{$getPost->slug ?? ''}}" class="form-control" placeholder="" aria-describedby="helpId">
@@ -31,8 +43,8 @@
                   <div class="mb-3">
                     <label for="" class="form-label">Post Status</label>
                     <select class="form-select form-select" name="status" id="">
-                        <option value="0" selected>Unpublished</option>
-                        <option value="1">Published</option>
+                        <option value="0" @if (Route::currentRouteName() == 'admin.blog.updatePost' && $getPost->status == 0) selected @endif>Unpublished</option>
+                        <option value="1" @if (Route::currentRouteName() == 'admin.blog.updatePost' && $getPost->status == 1) selected @endif>Published</option>
                     </select>
                   </div>
                   <div class="mb-3">
@@ -40,7 +52,7 @@
                     <select class="form-select form-select" name="category" id="">
                         @if (count($categories) > 0)
                             @foreach ($categories  as $category)
-                            <option value="{{$category->id}}">{{$category->cname}}</option>
+                            <option value="{{$category->id}}" @if (Route::currentRouteName()== 'admin.blog.updatePost') {{ ( $getPost->category == $category->id ) ? 'selected' : '' }} @endif>{{$category->cname}}</option>
                             @endforeach
                         @endif
 

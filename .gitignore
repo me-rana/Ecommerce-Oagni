@@ -1,7 +1,7 @@
 /.phpunit.cache
 /storage/*.key
 public/storage
-/storage
+/storage/app/public/
 .env
 .env.backup
 .env.production

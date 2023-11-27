@@ -273,12 +273,12 @@
                     <div class="col-lg-4 col-md-4 col-sm-6">
                         <div class="blog__item">
                             <div class="blog__item__pic">
-                                <img src="../storage/image/{{$post_latest->image_path}}" alt="" height="200px">
+                                <img src="../../{{$post_latest->image_path}}" alt="" height="200px">
                             </div>
                             <div class="blog__item__text">
                                 <ul>
                                     <li><i class="fa fa-calendar-o"></i>{{$post_latest->created_at->format('j F, Y')}}</li>
-                                    <li><i class="fa fa-comment-o"></i> 5</li>
+                                    <li><i class="fa fa-comment-o"></i> {{$post_latest->getUser->name}}</li>
                                 </ul>
                                 <h5><a href="../blog/{{$post_latest->slug}}">{{$post_latest->title}}</a></h5>
                                 <p>@php echo Str::words($post_latest->content,15); @endphp  </p>

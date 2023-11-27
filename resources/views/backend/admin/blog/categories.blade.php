@@ -16,7 +16,7 @@
                 @foreach ($categories as $category)
                 <div class="col-lg-4 col-md-4 col-sm-12 col-12">
                     <div class="card py-2">
-                        <img src="../../storage/image/{{$category->cimage_path}}" height="200px" alt="Avatar" style="width:100%">
+                        <img src="../../{{$category->cimage_path}}" height="200px" alt="Avatar" style="width:100%">
                         <div class="container">
                           <h4 class="text-center"><b>{{$category->cname}}</b></h4>
                           <p class="text-justify">{{$category->cdescription}}</p>

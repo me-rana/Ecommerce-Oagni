@@ -51,7 +51,7 @@
                                     @foreach ($latest_posts as $latest_post)
                                     <a href="../blog/{{$latest_post->slug}}" class="blog__sidebar__recent__item">
                                         <div class="blog__sidebar__recent__item__pic">
-                                            <img width="120px" src="../storage/image/{{$latest_post->image_path}}" alt="">
+                                            <img style="border: 1px solid #f5f5f5" width="100px" height="60px" src="../../{{$latest_post->image_path}}" alt="">
                                         </div>
                                         <div class="blog__sidebar__recent__item__text">
                                             <h6>{{$latest_post->title}}</h6>
@@ -78,7 +78,7 @@
                 </div>
                 <div class="col-lg-8 col-md-7 order-md-1 order-1">
                     <div class="blog__details__text">
-                        <img src="../storage/image/{{$post->image_path}}" alt="">
+                        <img style="border: 1px solid #f5f5f5" src="../../{{$post->image_path}}" alt="">
                         <p>
                             @php echo $post->content; @endphp
                         </p>

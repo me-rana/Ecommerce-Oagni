@@ -49,7 +49,7 @@
                                @foreach ($posts_latest as $latest_post)
                                <a href="#" class="blog__sidebar__recent__item">
                                 <div class="blog__sidebar__recent__item__pic">
-                                    <img src="../storage/image/{{$latest_post->image_path}}" alt="" height="50px">
+                                    <img style="border: 1px solid #f5f5f5" src="../../{{$latest_post->image_path}}" alt="" width="100px" height="60px">
                                 </div>
                                 <div class="blog__sidebar__recent__item__text">
                                     <h6>{{$latest_post->title}}</h6>
@@ -83,7 +83,7 @@
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="blog__item">
                                     <div class="blog__item__pic">
-                                        <img src="../storage/image/{{$post->image_path}}" alt="" height="200px">
+                                        <img style="border: 1px solid #f5f5f5" src="../../{{$post->image_path}}" alt="" height="200px">
                                     </div>
                                     <div class="blog__item__text">
                                         <ul>
