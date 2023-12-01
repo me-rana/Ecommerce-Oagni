@@ -16,7 +16,8 @@ use App\Http\Controllers\Base\Shop;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
-
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 
 class AdminController extends Controller
 {
@@ -125,13 +126,27 @@ class AdminController extends Controller
         return view('backend.admin.blog.new-category')->with($data);
         }
     }
-    protected function blogAddCategorySubmission(Request $req){
+    protected function blogAddCategorySubmission(Request $req) : RedirectResponse{
+        $req->validate(
+            [
+                'cname' => 'required',
+                'curl' => 'required',
+                'cdescription' => 'required'
+            ]
+            );
         $items = ['cname', 'curl', 'cdescription'];
         $category = $this->Blog();
         $category->category_submission($req, $items, Auth::user()->id);
         return redirect()->route('admin.blog.categories')->with('message','New Category added Successfully.');
     }
-    protected function blogUpdateCategorySubmission(Request $req,$id){
+    protected function blogUpdateCategorySubmission(Request $req,$id) : RedirectResponse{
+        $req->validate(
+            [
+                'cname' => 'required',
+                'curl' => 'required',
+                'cdescription' => 'required'
+            ]
+            );
         $items = ['cname', 'curl', 'cdescription'];
         $category = $this->Blog();
         $category->category_resubmission($id, $req, $items, Auth::user()->id );
@@ -167,7 +182,17 @@ class AdminController extends Controller
         $data = compact('title','submission','categories');
         return view('backend.admin.blog.new-post')->with($data);
     }
-    protected function postSubmission(Request $req){
+    protected function postSubmission(Request $req) : RedirectResponse {
+        $req->validate(
+            [
+                'title' => 'required',
+                'slug' => 'required',
+                'content' => 'required',
+                'tag' => 'required',
+                'status' => 'required',
+                'catgeory' => 'required'
+
+            ]);
         $items = ['title', 'slug', 'content', 'tag', 'status', 'category'];
         $blog = new Blog();
         $create = $blog->create($req, $items, Auth::user()->id);
@@ -188,7 +213,17 @@ class AdminController extends Controller
         return view('backend.admin.blog.new-post')->with($data);
         }
     }
-    protected function postSubmissionUpdate(Request $req, $id){
+    protected function postSubmissionUpdate(Request $req, $id) : RedirectResponse {
+        $req->validate(
+            [
+                'title' => 'required',
+                'slug' => 'required',
+                'content' => 'required',
+                'tag' => 'required',
+                'status' => 'required',
+                'catgeory' => 'required'
+
+            ]);
         $items = ['title', 'slug', 'content', 'tag', 'status', 'category'];
         $post_id = $id;
         $blog = new Blog();
@@ -236,14 +271,24 @@ class AdminController extends Controller
         return view('backend.admin.new-categories')->with($data);
     }
 
-    protected function categorySubmission(Request $req){
+    protected function categorySubmission(Request $req) : RedirectResponse{
+        $req->validate([
+            'pname' => 'required',
+            'purl' => 'required',
+            'pdescription' => 'required'
+        ]);
         $items = ['pname', 'purl', 'pdescription'];
         $shop = $this->Shop();
         $shop->submission_category($req, $items, Auth::user()->id);
         return redirect()->route('admin.categories')->with('message','New Category added Successfully.');
     }
   
-    protected function categoryResubmission(Request $req,$id){
+    protected function categoryResubmission(Request $req,$id) : RedirectResponse{
+        $req->validate([
+            'pname' => 'required',
+            'purl' => 'required',
+            'pdescription' => 'required'
+        ]);
         $items = ['pname', 'purl', 'pdescription'];
         $shop = $this->Shop();
         $shop->resubmission_category($id, $req, $items, Auth::user()->id);
@@ -277,8 +322,16 @@ class AdminController extends Controller
         $data = compact('title','submission','categories');
         return view('backend.admin.new-product')->with($data);
     }
-    protected function addedProduct(Request $req){
-        $items = ['pro_name', 'slug', 'category', 'orginal_price', 'discount_price', 'avilability', 'shipping', 'weight', 'description', 'information'];
+    protected function addedProduct(Request $req) : RedirectResponse{
+        $req->validate([
+            'proname' => 'required',
+            'slug' => 'required',
+            'category' => 'required',
+            'original_price' =>'required',
+            'availablity' => 'required',
+            'description' => 'required'
+        ]);
+        $items = ['pro_name', 'slug', 'category', 'orginal_price', 'discount_price', 'availability', 'shipping', 'weight', 'description', 'information'];
         $shop = $this->Shop();
         $product = $shop->product_submitted($req, $items, Auth::user()->id);
         return redirect()->route('admin.products')->with('message','Product added Successfully');
@@ -297,8 +350,16 @@ class AdminController extends Controller
 
         }
     }
-    protected function  updatedProduct(Request $req, $id){
-        $items = ['pro_name', 'slug', 'category', 'orginal_price', 'discount_price', 'avilability', 'shipping', 'weight', 'description', 'information'];
+    protected function  updatedProduct(Request $req, $id) : RedirectResponse{
+        $req->validate([
+            'proname' => 'required',
+            'slug' => 'required',
+            'category' => 'required',
+            'original_price' =>'required',
+            'availablity' => 'required',
+            'description' => 'required'
+        ]);
+        $items = ['pro_name', 'slug', 'category', 'orginal_price', 'discount_price', 'availability', 'shipping', 'weight', 'description', 'information'];
         $shop = $this->Shop();
         $product = $shop->product_resubmitted($id, $req, $items, Auth::user()->id);
         return redirect()->route('admin.products')->with('message','Product updated Successfully');

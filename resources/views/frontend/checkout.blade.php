@@ -84,7 +84,7 @@
                                 </div>
                             </div>
 
-
+                            <input type="hidden" name="seller" value="">
                             <div class="checkout__input">
                                 <p>Order notes<span>*</span></p>
                                 <input name="note" type="text" placeholder="Notes about your order, e.g. special notes for delivery.">

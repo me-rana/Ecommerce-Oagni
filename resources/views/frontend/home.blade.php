@@ -9,7 +9,7 @@
                     @if (count($productCategories) > 0)
                         @foreach ($productCategories as $productCategory)
                         <div class="col-lg-3">
-                            <div class="categories__item set-bg" data-setbg="../storage/image/{{$productCategory->pimage_path}}">
+                            <div class="categories__item set-bg" data-setbg="../../{{$productCategory->pimage_path}}">
                                 <h5><a href="../catgory/{{$productCategory->purl}}">{{$productCategory->pname}}</a></h5>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
 
             <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                 <div class="featured__item">
-                    <div class="featured__item__pic set-bg" data-setbg="../storage/image/{{$product->image_path}}">
+                    <div class="featured__item__pic set-bg" data-setbg="../../{{$product->image_path}}">
                         <ul class="featured__item__pic__hover">
                             <li><a href="#"><i class="fa fa-heart"></i></a></li>
                             <li><a href="../product/{{$product->slug}}"><i class="fa fa-retweet"></i></a></li>
@@ -102,7 +102,7 @@
                                      @foreach ($latest_Products as $latest_Product)
                                         <a href="../product/{{$latest_Product->slug}}" class="latest-product__item">
                                             <div class="latest-product__item__pic">
-                                                <img src="../storage/image/{{$latest_Product->image_path}}" alt="">
+                                                <img src="../../{{$latest_Product->image_path}}" alt="">
                                             </div>
                                             <div class="latest-product__item__text">
                                                 <h6>{{$latest_Product->pro_name}}</h6>
@@ -117,7 +117,7 @@
                                      @foreach ($latest_Productsx as $latest_Productx)
                                         <a href="../product/{{$latest_Productx->slug}}" class="latest-product__item">
                                             <div class="latest-product__item__pic">
-                                                <img src="../storage/image/{{$latest_Productx->image_path}}" alt="">
+                                                <img src="../../{{$latest_Productx->image_path}}" alt="">
                                             </div>
                                             <div class="latest-product__item__text">
                                                 <h6>{{$latest_Productx->pro_name}}</h6>
@@ -132,7 +132,7 @@
                                      @foreach ($latest_Productsy as $latest_Productx)
                                         <a href="../product/{{$latest_Productx->slug}}" class="latest-product__item">
                                             <div class="latest-product__item__pic">
-                                                <img src="../storage/image/{{$latest_Productx->image_path}}" alt="">
+                                                <img src="../../{{$latest_Productx->image_path}}" alt="">
                                             </div>
                                             <div class="latest-product__item__text">
                                                 <h6>{{$latest_Productx->pro_name}}</h6>
@@ -156,7 +156,7 @@
                                  @foreach ($latest_Products as $latest_Product)
                                     <a href="../product/{{$latest_Product->slug}}" class="latest-product__item">
                                         <div class="latest-product__item__pic">
-                                            <img src="../storage/image/{{$latest_Product->image_path}}" alt="">
+                                            <img src="../../{{$latest_Product->image_path}}" alt="">
                                         </div>
                                         <div class="latest-product__item__text">
                                             <h6>{{$latest_Product->pro_name}}</h6>
@@ -171,7 +171,7 @@
                                  @foreach ($latest_Productsx as $latest_Productx)
                                     <a href="../product/{{$latest_Productx->slug}}" class="latest-product__item">
                                         <div class="latest-product__item__pic">
-                                            <img src="../storage/image/{{$latest_Productx->image_path}}" alt="">
+                                            <img src="../../{{$latest_Productx->image_path}}" alt="">
                                         </div>
                                         <div class="latest-product__item__text">
                                             <h6>{{$latest_Productx->pro_name}}</h6>
@@ -186,7 +186,7 @@
                                  @foreach ($latest_Productsy as $latest_Productx)
                                     <a href="../product/{{$latest_Productx->slug}}" class="latest-product__item">
                                         <div class="latest-product__item__pic">
-                                            <img src="../storage/image/{{$latest_Productx->image_path}}" alt="">
+                                            <img src="../../{{$latest_Productx->image_path}}" alt="">
                                         </div>
                                         <div class="latest-product__item__text">
                                             <h6>{{$latest_Productx->pro_name}}</h6>
@@ -209,7 +209,7 @@
                                  @foreach ($latest_Products as $latest_Product)
                                     <a href="../product/{{$latest_Product->slug}}" class="latest-product__item">
                                         <div class="latest-product__item__pic">
-                                            <img src="../storage/image/{{$latest_Product->image_path}}" alt="">
+                                            <img src="../../{{$latest_Product->image_path}}" alt="">
                                         </div>
                                         <div class="latest-product__item__text">
                                             <h6>{{$latest_Product->pro_name}}</h6>
@@ -224,7 +224,7 @@
                                  @foreach ($latest_Productsx as $latest_Productx)
                                     <a href="../product/{{$latest_Productx->slug}}" class="latest-product__item">
                                         <div class="latest-product__item__pic">
-                                            <img src="../storage/image/{{$latest_Productx->image_path}}" alt="">
+                                            <img src="../../{{$latest_Productx->image_path}}" alt="">
                                         </div>
                                         <div class="latest-product__item__text">
                                             <h6>{{$latest_Productx->pro_name}}</h6>
@@ -239,7 +239,7 @@
                                  @foreach ($latest_Productsy as $latest_Productx)
                                     <a href="../product/{{$latest_Productx->slug}}" class="latest-product__item">
                                         <div class="latest-product__item__pic">
-                                            <img src="../storage/image/{{$latest_Productx->image_path}}" alt="">
+                                            <img src="../../{{$latest_Productx->image_path}}" alt="">
                                         </div>
                                         <div class="latest-product__item__text">
                                             <h6>{{$latest_Productx->pro_name}}</h6>

@@ -22,4 +22,7 @@ class Products extends Model
     public function getSeller() : BelongsTo {
         return $this->belongsTo(User::class, 'seller', 'id');
     }
+    public function getCategory() : BelongsTo {
+        return $this->belongsTo(pCategories::class, 'category', 'id' );
+    }
 }

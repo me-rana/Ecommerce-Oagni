@@ -21,12 +21,12 @@
                 <div class="mb-3">
                     <label for="" class="form-label">Category Name</label>
                     <input type="text" name="pname" id="pname" value="{{$categories->pname ?? ''}}" class="form-control" placeholder="" aria-describedby="helpId">
-                    <small id="helpId" class="text-muted">Beauty, Diet and Weightloss</small>
+                    <small><span class="text-danger"> @error('pname') {{$message}} @enderror </span></small>
                   </div>
                   <div class="mb-3">
                     <label for="" class="form-label">Category Slug</label>
                     <input type="text" name="purl" id="purl" value="{{$categories->purl ?? ''}} " class="form-control" placeholder="" aria-describedby="helpId">
-                    <small id="helpId" class="text-muted">beauty,weightloss</small>
+                    <small><span class="text-danger"> @error('purl') {{$message}} @enderror </span></small>
                   </div>
                   <div class="mb-3">
                     <label for="" class="form-label">Choose file</label>
@@ -36,7 +36,7 @@
                   <div class="mb-3">
                     <label for="" class="form-label">Description of the Category</label>
                     <input type="text" name="pdescription" value="{{$categories->pdescription ?? ''}}" id="" class="form-control" placeholder="" aria-describedby="helpId">
-                    <small id="helpId" class="text-muted">In this category, All the contents are related to the beauty.</small>
+                    <small><span class="text-danger"> @error('email') {{$pdescription}} @enderror </span></small>
                   </div>
                   <div class="py-4">
                   <input type="submit" value="Create" class="btn btn-primary">

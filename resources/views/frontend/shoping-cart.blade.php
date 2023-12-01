@@ -41,7 +41,7 @@
                                     @foreach ($carts as $cart)
                                     <tr>
                                         <td class="shoping__cart__item">
-                                            <img src="../storage/image/" alt="">
+                                            <img src="../../{{$cart->getImage->image_path}}" height="80px" alt="">
                                             <h5>{{$cart->product_name}}</h5>
                                         </td>
                                         <td class="shoping__cart__price">

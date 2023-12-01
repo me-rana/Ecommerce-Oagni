@@ -23,8 +23,8 @@ class Shop extends Controller
         if($req_file != null){
             $img_name = $req_file->getClientOriginalName();
             $image = date("Y-m-d_H-i-s")."_".rand(11111,99999).$img_name;
-            $req_file->storeAs('public/posts', $image);
-            return 'storage/posts/'.$image;
+            $req_file->storeAs('public/product', $image);
+            return 'storage/product/'.$image;
         }
     }
     protected function image_delete($file){
@@ -52,7 +52,7 @@ class Shop extends Controller
         }
         $product->seller = $seller;
         if (!is_null($request->file('image'))){
-            $product->image_store ($request->file('image'));
+            $product->image_path = $this->image_store($request->file('image'));
         }
         $product->save();
         return true;
@@ -65,7 +65,7 @@ class Shop extends Controller
         $product->seller = $seller;
         if (!is_null($request->file('image'))){
             $this->image_delete($product->image_path);
-            $product->image_store ($request->file('image'));
+            $product->image_path = $this->image_store($request->file('image'));
         }
         $product->save();
         return true;

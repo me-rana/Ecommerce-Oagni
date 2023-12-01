@@ -29,7 +29,7 @@
                 <div class="mb-3">
                     <label for="" class="form-label">Title</label>
                     <input type="text" name="title" id="title" value="{{$getPost->title ?? ''}}" class="form-control" placeholder="" aria-describedby="helpId">
-                    <small id="helpId" class="text-muted">How remove dark circle from eyes</small>
+                    <small><span class="text-danger"> @error('title') {{$message}} @enderror </span></small>
                   </div>
                   @if (Route::currentRouteName() == 'admin.blog.updatedPost')
                     <input type="hidden" name="post_id" value="{{ $post_id }}">
@@ -38,7 +38,7 @@
                   <div class="mb-3">
                     <label for="" class="form-label">Post Slug</label>
                     <input type="text" name="slug" id="slug" value="{{$getPost->slug ?? ''}}" class="form-control" placeholder="" aria-describedby="helpId">
-                    <small id="helpId" class="text-muted">Genareated dynamically with title on Click</small>
+                    <small><span class="text-danger"> @error('slug') {{$message}} @enderror </span></small>
                   </div>
                   <div class="mb-3">
                     <label for="" class="form-label">Post Status</label>
@@ -46,6 +46,7 @@
                         <option value="0" @if (Route::currentRouteName() == 'admin.blog.updatePost' && $getPost->status == 0) selected @endif>Unpublished</option>
                         <option value="1" @if (Route::currentRouteName() == 'admin.blog.updatePost' && $getPost->status == 1) selected @endif>Published</option>
                     </select>
+                    <small><span class="text-danger"> @error('status') {{$message}} @enderror </span></small>
                   </div>
                   <div class="mb-3">
                     <label for="" class="form-label">Category</label>
@@ -57,6 +58,7 @@
                         @endif
 
                     </select>
+                    <small><span class="text-danger"> @error('category') {{$message}} @enderror </span></small>
                   </div>
                   <div class="mb-3">
                     <label for="" class="form-label">Choose file</label>
@@ -68,12 +70,12 @@
                     <textarea class="form-control" name="content" id="editor">@php
                         echo html_entity_decode($getPost->content ?? '')
                     @endphp</textarea>
-                    <small id="helpId" class="text-muted">In this category, All the contents are related to the beauty.</small>
+                    <small><span class="text-danger"> @error('content') {{$message}} @enderror </span></small>
                   </div>
                   <div class="mb-3">
                     <label for="" class="form-label">Tag</label>
                     <input type="text" name="tag" id="" value="{{$getPost->tag ?? '' }}"  class="form-control" placeholder="" aria-describedby="helpId">
-                    <small id="helpId" class="text-muted">beauty,skin</small>
+                    <small><span class="text-danger"> @error('tag') {{$message}} @enderror </span></small>
                   </div>
                   <div class="py-4">
                   <input type="submit" value="Create" class="btn btn-primary">

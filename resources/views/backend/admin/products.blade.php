@@ -16,20 +16,20 @@
                 @foreach ($products as $product)
                 <div class="col-lg-4 col-md-4 col-sm-12 col-12">
                     <div class="card py-2">
-                        <img src="../../storage/image/{{$product->image_path}}" height="200px" alt="Avatar" style="width:100%">
+                        <img src="../../{{$product->image_path}}" height="200px" alt="Avatar" style="width:100%">
                         <div class="container">
                           <h4 class="text-center"><b>{{$product->pro_name}}</b></h4>
                           <p class="text-justify">
                             @php echo Str::words($product->description,15);; @endphp
                           </p>
-                          <p class="text-center"> Author : <b> {{$product->name}} </b> <br>
+                          <p class="text-center"> Author : <b> {{$product->getSeller->name}} </b> <br>
                             Status : @if ($product->status == 1)
                                 Published
                                 @else
                                 Unpublished
                             @endif
                             <br>
-                            Category : {{$product->pname}}</p>
+                            Category : {{$product->getCategory->pname}}</p>
                           <div class="row">
 
                             <div class="col-4"><a href="../../../product/{{$product->slug}}" rel="noopener noreferrer"><button class="btn btn-success">View</button></a></div>

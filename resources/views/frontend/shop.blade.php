@@ -131,7 +131,7 @@
                                             @foreach ($latest_Products as $product_latest)
                                             <a href="#" class="latest-product__item">
                                                 <div class="latest-product__item__pic">
-                                                    <img src="../storage/image/{{$product_latest->image_path}}" alt="">
+                                                    <img src="../../{{$product_latest->image_path}}" alt="">
                                                 </div>
                                                 <div class="latest-product__item__text">
                                                     <h6>{{$product_latest->pro_name}}</h6>
@@ -160,7 +160,7 @@
                                   <div class="col-lg-4">
                                     <div class="product__discount__item">
                                         <div class="product__discount__item__pic set-bg"
-                                            data-setbg="../storage/image/{{$disproduct->image_path}}">
+                                            data-setbg="../../{{$disproduct->image_path}}">
                                             <div class="product__discount__percent">{{round((($disproduct->orginal_price - $disproduct->discount_price)/$disproduct->orginal_price)*100)}}%</div>
                                             <ul class="product__item__pic__hover">
                                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
@@ -210,7 +210,7 @@
                             @foreach ($products as $product)
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="../storage/image/{{$product->image_path}}">
+                                    <div class="product__item__pic set-bg" data-setbg="../../{{$product->image_path}}">
                                         <ul class="product__item__pic__hover">
                                             <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                             <li><a href="../product/{{$product->slug}}"><i class="fa fa-retweet"></i></a></li>

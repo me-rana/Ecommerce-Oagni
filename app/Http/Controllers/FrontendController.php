@@ -213,6 +213,7 @@ class FrontendController extends Controller
             $order->product_name = $cart->product_name;
             $order->quantity = $cart->quantity;
             $order->price = $cart->price;
+            $order->seller = $cart->getImage->seller;
             $order->uid = Auth::user()->id;
             $totalx = $cart->price * $cart->quantity;
             $order->vat = $totalx- (($totalx*99.5)/100);

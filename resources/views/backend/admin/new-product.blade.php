@@ -21,12 +21,12 @@
                 <div class="mb-3">
                     <label for="" class="form-label">Product Name <font color="red">*</font></label>
                     <input type="text" name="pro_name" id="pro_name" value="{{$product->pro_name ?? ''}}" class="form-control" placeholder="" aria-describedby="helpId" >
-                    <small id="helpId" class="text-muted">Write a valid name of your product</small>
+                    <small><span class="text-danger"> @error('pro_name') {{$message}} @enderror </span></small>
                   </div>
                   <div class="mb-3">
                     <label for="" class="form-label">Slug <font color="red">*</font></label>
                     <input type="text" name="slug" id="slug" value="{{$product->slug ?? ''}}" class="form-control" placeholder="" aria-describedby="helpId" >
-                    <small id="helpId" class="text-muted">This link will genarated automatically</small>
+                    <small><span class="text-danger"> @error('slug') {{$message}} @enderror </span></small>
                   </div>
                   <div class="mb-3">
                     <label for="" class="form-label">Choose file</label>
@@ -41,12 +41,14 @@
                         @endforeach
 
                     </select>
+                    <small><span class="text-danger"> @error('category') {{$message}} @enderror </span></small>
                   </div>
                   <div class="row">
                     <div class="col-6"><div class="mb-3">
                       <label for="" class="form-label">Product Price <font color="red">*</font></label>
                       <input type="number" name="orginal_price" id="" value="{{$product->orginal_price ?? ''}}" class="form-control" placeholder="" aria-describedby="helpId" >
                       <small id="helpId" class="text-muted">1000</small>
+                      <small><span class="text-danger"> @error('orginal_price') {{$message}} @enderror </span></small>
                     </div></div>
                     <div class="col-6"><div class="mb-3">
                         <label for="" class="form-label">Product Discount Price</label>
@@ -61,12 +63,14 @@
                         <option value="Stock out">Stock out</option>
                         <option value="Comming Soon">Comming Soon</option>
                     </select>
+                    <small><span class="text-danger"> @error('availability') {{$message}} @enderror </span></small>
                   </div>
                   <div class="mb-3">
                     <label for="" class="form-label">Description of the Product <font color="red">*</font></label>
                     <textarea class="form-control" name="description" id="editor" rows="3" >@php
                         echo html_entity_decode($product->description ?? '')
                     @endphp</textarea>
+                    <small><span class="text-danger"> @error('description') {{$message}} @enderror </span></small>
                   </div>
                   <div class="row">
                     <div class="col-6"><div class="mb-3">

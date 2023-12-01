@@ -20,7 +20,7 @@
                         <div class="container">
                           <h4 class="text-center"><b>{{$category->pname}}</b></h4>
                           <p class="text-justify">{{$category->pdescription}}</p>
-                          <p class="text-center"> Created By : <b> {{$category->name}} </b></p>
+                          <p class="text-center"> Created By : <b> {{$category->getUser->name}} </b></p>
                           <div class="row">
 
                             <div class="col-4"><a href="../../../categories/{{$category->purl}}" rel="noopener noreferrer"><button class="btn btn-success">View</button></a></div>
