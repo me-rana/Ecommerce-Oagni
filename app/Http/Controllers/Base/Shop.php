@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Base;
 
 use App\Models\Products;
 use App\Models\pCategories;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 

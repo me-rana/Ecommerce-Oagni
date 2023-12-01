@@ -10,7 +10,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard - MyBlog</title>
+  <title>{{Route::currentRouteName()}}</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -50,7 +50,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="{{route('admin.dashboard')}}" class="logo d-flex align-items-center">
+      <a href="{{route('Dashboard (Admin)')}}" class="logo d-flex align-items-center">
 
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Croissant+One&display=swap');

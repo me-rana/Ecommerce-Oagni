@@ -1,15 +1,15 @@
 @extends('backend.admin.layout.admin')
 @section('main-content')
 
-        <div class="pagetitle">
-            <h1>Update User</h1>
-            <nav>
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
-                <li class="breadcrumb-item active">Update User</li>
-              </ol>
-            </nav>
-          </div><!-- End Page Title -->
+<div class="pagetitle">
+  <h1>{{Route::currentRouteName()}}</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{{route('Dashboard (Admin)')}}">Home</a></li>
+      <li class="breadcrumb-item active">{{Route::currentRouteName()}}</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
 
           <div class="container card py-4">
             <h3 class="text-center">Update User's Profile</h3>

@@ -1,22 +1,21 @@
 @extends('backend.admin.layout.admin')
 @section('main-content')
 
-        <div class="pagetitle">
-            <h1>{{$title}}</h1>
-            <nav>
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{route('admin.products')}}">Products</a></li>
-                <li class="breadcrumb-item active">{{$title}}</li>
-              </ol>
-            </nav>
-          </div><!-- End Page Title -->
+<div class="pagetitle">
+  <h1>{{Route::currentRouteName()}}</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{{route('Dashboard (Admin)')}}">Home</a></li>
+      <li class="breadcrumb-item active">{{Route::currentRouteName()}}</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
           <div class="container card py-2">
             <div class="py-5">
                 <h4 class="text-center"><b>{{$title}}</b></h4>
             <p class="text-center">Please fill all the info for better understanding.</p>
             </div>
-            <form action="{{$submission}}" method="post" enctype='multipart/form-data'>
+            <form action="{{$submission}}" method="POST" enctype='multipart/form-data'>
                 @csrf
                 <div class="mb-3">
                     <label for="" class="form-label">Product Name <font color="red">*</font></label>
@@ -25,7 +24,7 @@
                   </div>
                   <div class="mb-3">
                     <label for="" class="form-label">Slug <font color="red">*</font></label>
-                    <input type="text" name="slug" id="slug" value="{{$product->slug ?? ''}}" class="form-control" placeholder="" aria-describedby="helpId" >
+                    <input type="text" name="slug" id="slug" value="{{$product->slug ?? ''}}" class="form-control" placeholder="" aria-describedby="helpId" disabled>
                     <small><span class="text-danger"> @error('slug') {{$message}} @enderror </span></small>
                   </div>
                   <div class="mb-3">

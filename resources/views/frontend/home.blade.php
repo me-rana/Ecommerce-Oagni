@@ -10,7 +10,7 @@
                         @foreach ($productCategories as $productCategory)
                         <div class="col-lg-3">
                             <div class="categories__item set-bg" data-setbg="../../{{$productCategory->pimage_path}}">
-                                <h5><a href="../catgory/{{$productCategory->purl}}">{{$productCategory->pname}}</a></h5>
+                                <h5><a href="../category/{{$productCategory->purl}}">{{$productCategory->pname}}</a></h5>
                             </div>
                         </div>
                         @endforeach

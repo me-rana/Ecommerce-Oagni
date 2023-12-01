@@ -1,16 +1,15 @@
 @extends('backend.admin.layout.admin')
 @section('main-content')
 
-        <div class="pagetitle">
-            <h1>{{$title}} (Blog)</h1>
-            <nav>
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{route('admin.blog.categories')}}">Categories</a></li>
-                <li class="breadcrumb-item active">{{$title}}</li>
-              </ol>
-            </nav>
-          </div><!-- End Page Title -->
+<div class="pagetitle">
+  <h1>{{Route::currentRouteName()}}</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{{route('Dashboard (Admin)')}}">Home</a></li>
+      <li class="breadcrumb-item active">{{Route::currentRouteName()}}</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
           <div class="container bg-white card">
             <div class="py-5">
                 <h4 class="text-center"><b>{{$title}}</b></h4>
@@ -25,7 +24,7 @@
                   </div>
                   <div class="mb-3">
                     <label for="" class="form-label">Category Slug</label>
-                    <input type="text" name="curl" id="curl" value="{{$categories->curl ?? ''}} " class="form-control" placeholder="" aria-describedby="helpId">
+                    <input type="text" name="curl" id="curl" value="{{$categories->curl ?? ''}} " class="form-control" placeholder="" aria-describedby="helpId" disabled>
                     <small><span class="text-danger"> @error('curl') {{$message}} @enderror </span></small>
                   </div>
                   <div class="mb-3">

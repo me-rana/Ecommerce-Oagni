@@ -1,21 +1,33 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Auth;
-
-use Illuminate\Http\Request;
-use App\Models\pCategories;
-use App\Models\RequestCategory;
-use App\Models\Products;
 use App\Models\User;
+
 use App\Models\Order;
+use App\Models\Products;
 use App\Models\OrderUpdate;
+use App\Models\pCategories;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Base\Blog;
+use App\Http\Controllers\Base\Shop;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
-use File;
 
 class ResellerController extends Controller
 {
     //
+
+       //Extend Class
+       protected function Blog(){
+        $blog = new Blog();
+        return $blog;
+    }
+    protected function Shop(){
+        $shop = new Shop();
+        return $shop;
+    }
+    
     protected function home(){
         return view('backend.seller.dashboard');
     }
@@ -29,9 +41,10 @@ class ResellerController extends Controller
         ]);
     }
     protected function productCategories(){
-        $cat_per = 20;
-        $categories = pCategories::where('p_categories.id','!=',null)->latest()->paginate($cat_per);
-        return view ('backend.seller.categories',compact('categories'))->with('i',(request()->input('page',1)-1)*$cat_per);
+        $perpage = 20;
+        $shop = $this->Shop();
+        $categories = $shop->read_category($perpage);
+        return view ('backend.seller.categories',compact('categories'))->with('i',(request()->input('page',1)-1)*$perpage);
     }
     protected function newCategory(){
         $title = 'Request Category';
@@ -39,20 +52,15 @@ class ResellerController extends Controller
         $data = compact('title','submission');
         return view('backend.seller.request-category')->with($data);
     }
-    protected function categorySubmission(Request $req){
-        $category = new RequestCategory;
-        $category->pname = $req->pname;
-        $category->purl = $req->purl;
-        if($req->file('image') != null){
-            $imgName = $req->file('image')->getClientOriginalName();
-            $image = rand(11111, 99999) . $imgName;
-            $req->file('image')->storeAs('public/image', $image);
-            $category->pimage_path = $image;
-        }
-        $category->pdescription = $req->pdescription;
-        $category->puid = Auth::user()->id;
-        $category->save();
-
+    protected function categorySubmission(Request $req) : RedirectResponse{
+        $req->validate([
+            'pname' => 'required',
+            'purl' => 'required',
+            'pdescription' => 'required'
+        ]);
+        $items = ['pname', 'purl', 'pdescription'];
+        $shop = $this->Shop();
+        $shop->submission_category($req, $items, Auth::user()->id);
         return redirect()->route('seller.categories')->with('message','New Category added Successfully.');
     }
 
@@ -65,9 +73,10 @@ class ResellerController extends Controller
         ]);
     }
     protected function products(){
-        $cat_per = 20;
-        $products = Products::rightJoin('users','products.seller','users.id')->join('p_categories','products.category','p_categories.id')->where('products.id','!=',null)->where('products.seller',Auth::user()->id)->select('products.*','users.name','p_categories.pname')->latest()->paginate($cat_per);
-        return view ('backend.seller.products',compact('products'))->with('i',(request()->input('page',1)-1)*$cat_per);
+        $perpage = 12;
+        $shop = $this->Shop();
+        $products = $shop->read($perpage);
+        return view ('backend.seller.products',compact('products'))->with('i',(request()->input('page',1)-1)*$perpage);
     }
     protected function addProduct(){
         $title = 'New Product';
@@ -76,26 +85,18 @@ class ResellerController extends Controller
         $data = compact('title','submission','categories');
         return view('backend.seller.new-product')->with($data);
     }
-    protected function addedProduct(Request $req){
-        $product = new Products;
-        $product->pro_name = $req->pro_name;
-        $product->slug = $req->slug;
-        if($req->file('image') != null){
-            $imgName = $req->file('image')->getClientOriginalName();
-            $image = rand(11111, 99999) . $imgName;
-            $req->file('image')->storeAs('public/image', $image);
-            $product->image_path = $image;
-        }
-        $product->category = $req->category;
-        $product->orginal_price = $req->orginal_price;
-        $product->discount_price = $req->discount_price;
-        $product->availability = $req->availability;
-        $product->shipping = $req->shipping;
-        $product->seller = Auth::user()->id;
-        $product->weight = $req->weight;
-        $product->description = $req->description;
-        $product->information = $req->information;
-        $product->save();
+    protected function addedProduct(Request $req) : RedirectResponse {
+        $req->validate([
+            'proname' => 'required',
+            'slug' => 'required',
+            'category' => 'required',
+            'original_price' =>'required',
+            'availablity' => 'required',
+            'description' => 'required'
+        ]);
+        $items = ['pro_name', 'slug', 'category', 'orginal_price', 'discount_price', 'availability', 'shipping', 'weight', 'description', 'information'];
+        $shop = $this->Shop();
+        $product = $shop->product_submitted($req, $items, Auth::user()->id);
         return redirect()->route('seller.products')->with('message','Product added Successfully');
     }
     protected function updateProduct($id){
@@ -112,42 +113,24 @@ class ResellerController extends Controller
 
         }
     }
-    protected function  updatedProduct(Request $req, $id){
-        $product = Products::find($id);
-        $product->pro_name = $req->pro_name;
-        $product->slug = $req->slug;
-        if($req->file('image') != null){
-        // $image_path = public_path('public/image', $blogCategory->cimage_path);
-        $image_path = 'storage/image/'.$product->image_path;
-        if (File::exists($image_path)) {
-            File::delete($image_path);
-        }
-            $imgName = $req->file('image')->getClientOriginalName();
-            $image = rand(11111, 99999) . $imgName;
-            $req->file('image')->storeAs('public/image', $image);
-            $product->image_path = $image;
-        }
-        $product->category = $req->category;
-        $product->orginal_price = $req->orginal_price;
-        $product->discount_price = $req->discount_price;
-        $product->availability = $req->availability;
-        $product->shipping = $req->shipping;
-        $product->seller = Auth::user()->id;
-        $product->weight = $req->weight;
-        $product->description = $req->description;
-        $product->information = $req->information;
-        $product->update();
+    protected function  updatedProduct(Request $req, $id) : RedirectResponse {
+        $req->validate([
+            'proname' => 'required',
+            'slug' => 'required',
+            'category' => 'required',
+            'original_price' =>'required',
+            'availablity' => 'required',
+            'description' => 'required'
+        ]);
+        $items = ['pro_name', 'slug', 'category', 'orginal_price', 'discount_price', 'availability', 'shipping', 'weight', 'description', 'information'];
+        $shop = $this->Shop();
+        $product = $shop->product_resubmitted($id, $req, $items, Auth::user()->id);
         return redirect()->route('seller.products')->with('message','Product updated Successfully');
     }
 
     protected function deleteProduct($id){
-        $product = Products::find($id);
-        // $image_path = public_path('public/image', $blogCategory->cimage_path);
-        $image_path = 'storage/image/'.$product->image_path;
-        if (File::exists($image_path)) {
-            File::delete($image_path);
-        }
-        $product->delete();
+        $shop = $this->Shop();
+        $product =$shop->delete_product($id); 
         return redirect()->route('seller.products')->with('message','Product deleted Successfully.');
     }
     protected function orders(){

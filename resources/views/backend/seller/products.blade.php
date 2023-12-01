@@ -1,22 +1,22 @@
 @extends('backend.seller.layout.seller')
 @section('main-content')
 
-        <div class="pagetitle">
-            <h1>Products</h1>
-            <nav>
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
-                <li class="breadcrumb-item active">Products</li>
-              </ol>
-            </nav>
-          </div><!-- End Page Title -->
+<div class="pagetitle">
+  <h1>{{Route::currentRouteName()}}</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{{route('seller.dashboard')}}">Home</a></li>
+      <li class="breadcrumb-item active">{{Route::currentRouteName()}}</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
           @include('backend.seller.layout.message-notify')
           <div class="row">
             @if(count($products) > 0)
                 @foreach ($products as $product)
                 <div class="col-lg-4 col-md-4 col-sm-12 col-12">
                     <div class="card py-2">
-                        <img src="../../storage/image/{{$product->image_path}}" height="200px" alt="Avatar" style="width:100%">
+                        <img src="../../{{$product->image_path}}" height="200px" alt="Avatar" style="width:100%">
                         <div class="container">
                           <h4 class="text-center"><b>{{$product->pro_name}}</b></h4>
                           <center>{{$product->pname}}</center>
@@ -40,6 +40,8 @@
                       </div>
                 </div>
                 @endforeach
+                {{$products->links('pagination::bootstrap-5')}}
+
                 @else
                 <div class="py-3"><h4 class="text-center">Nothing Found</h4><p class="text-center">You have not added any product added yet</p></div>
             @endif

@@ -1,15 +1,14 @@
 @extends('backend.admin.layout.admin')
 @section('main-content')
-
-        <div class="pagetitle">
-            <h1>Posts</h1>
-            <nav>
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
-                <li class="breadcrumb-item active">Posts</li>
-              </ol>
-            </nav>
-          </div><!-- End Page Title -->
+<div class="pagetitle">
+  <h1>{{Route::currentRouteName()}}</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{{route('Dashboard (Admin)')}}">Home</a></li>
+      <li class="breadcrumb-item active">{{Route::currentRouteName()}}</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
           @if (session('message'))
           <div class="alert alert-primary alert-dismissible fade show" role="alert">
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -46,13 +45,12 @@
                             <div class="col-4"><a href="../../admin/blog/update-post/{{$post->id}}" rel="noopener noreferrer"><button class="btn btn-secondary">Edit</button></a></div>
                             <div class="col-4"><a href="../../admin/blog/delete-post/{{$post->id}}" rel="noopener noreferrer"><button class="btn btn-danger">Delete</button></a></div>
                           </div>
-
-
-
                         </div>
                       </div>
                 </div>
                 @endforeach
+                {{$posts->links('pagination::bootstrap-5')}}
+
             @endif
           </div>
 

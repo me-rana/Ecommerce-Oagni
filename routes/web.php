@@ -22,27 +22,27 @@ use App\Http\Controllers\AuthRedirectController;
 
 //Frontend Controller Use for Management Public Views
 Route::prefix('/')->group(function () {
-    Route::get('/',[FrontendController::class,'home'])->name('home');
-    Route::get('/back',[FrontendController::class,'sendMeBack'])->name('sendMeBack');
-    Route::get('shop',[FrontendController::class,'shop'])->name('shop');
-    Route::get('search',[FrontendController::class,'searchResult'])->name('search.result');
-    Route::get('category/{purl}',[FrontendController::class,'categoryAction'])->name('categoryAction');
-    Route::get('blog',[FrontendController::class,'blog'])->name('blog');
-    Route::get('blog-category/{curl}',[FrontendController::class,'blogCategoryAction'])->name('blogCategoryAction');
-    Route::get('blog-search',[FrontendController::class,'blogSearch'])->name('blogSearch');
-    Route::get('blog/{slug}',[FrontendController::class,'singlePost'])->name('singlePost');
-    Route::get('contact',[FrontendController::class,'contact'])->name('contact');
-    Route::post('contact',[FrontendController::class,'contactSubmission'])->name('contactSubmission');
-    Route::get('single-product',[FrontendController::class,'singleProduct'])->name('singleProduct');
-    Route::post('single-product',[FrontendController::class,'singleCart'])->name('singleCart');
-    Route::get('product/{slug}',[FrontendController::class,'productDetails'])->name('productDetails');
-    Route::get('add-cart/{id}',[FrontendController::class,'productCart'])->name('productCart');
-    Route::get('shoping-cart',[FrontendController::class,'shopingCart'])->name('shopingCart');
-    Route::post('shoping-cart',[FrontendController::class,'updateCart'])->name('update.Cart');
-    Route::get('delete-cart/{id}',[FrontendController::class,'deleteCart'])->name('deleteCart');
-    Route::get('checkout',[FrontendController::class,'checkout'])->name('checkout');
-    Route::post('checkout',[FrontendController::class,'order'])->name('order');
-    Route::get('access-denied',[FrontendController::class,'access_denied'])->name('denied');
+    Route::get('/',[FrontendController::class,'home'])->name('Home');
+    Route::get('/back',[FrontendController::class,'sendMeBack'])->name('Redirect');
+    Route::get('shop',[FrontendController::class,'shop'])->name('Shop');
+    Route::get('search',[FrontendController::class,'searchResult'])->name('Search Result');
+    Route::get('category/{purl}',[FrontendController::class,'categoryAction'])->name('Product Category Action');
+    Route::get('blog',[FrontendController::class,'blog'])->name('Blog');
+    Route::get('blog-category/{curl}',[FrontendController::class,'blogCategoryAction'])->name('Blog Category Action');
+    Route::get('blog-search',[FrontendController::class,'blogSearch'])->name('Blog Search');
+    Route::get('blog/{slug}',[FrontendController::class,'singlePost'])->name('Single Post');
+    Route::get('contact',[FrontendController::class,'contact'])->name('Contact');
+    Route::post('contact',[FrontendController::class,'contactSubmission'])->name('Contact Submission');
+    Route::get('single-product',[FrontendController::class,'singleProduct'])->name('Single Product');
+    Route::post('single-product',[FrontendController::class,'singleCart'])->name('Single Cart');
+    Route::get('product/{slug}',[FrontendController::class,'productDetails'])->name('product Details');
+    Route::get('add-cart/{id}',[FrontendController::class,'productCart'])->name('Product Cart');
+    Route::get('shoping-cart',[FrontendController::class,'shopingCart'])->name('Shoping Cart');
+    Route::post('shoping-cart',[FrontendController::class,'updateCart'])->name('Update Cart');
+    Route::get('delete-cart/{id}',[FrontendController::class,'deleteCart'])->name('Delete Cart');
+    Route::get('checkout',[FrontendController::class,'checkout'])->name('Checkout');
+    Route::post('checkout',[FrontendController::class,'order'])->name('Order');
+    Route::get('access-denied',[FrontendController::class,'access_denied'])->name('Denied');
     Route::get('mydashboard',[AuthRedirectController::class,'mydashboard'])->name('mydashboard');
 
 });
@@ -66,49 +66,49 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('admin',[AdminController::class,'home'] )->name('admin.dashboard');
+    Route::get('admin',[AdminController::class,'home'] )->name('Dashboard (Admin)');
     //Settings Management System------------------------------------------------------------------->
-    Route::get('admin/settings',[AdminController::class,'settings'] )->name('admin.settings');
+    Route::get('admin/settings',[AdminController::class,'settings'] )->name('Settings (Admin)');
     Route::post('admin/settings',[AdminController::class,'settings_submission'] )->name('admin.settings.submit');
     // Category for Blog Posts---------------------------------------------------------------------->
     Route::get('admin/blog/get-blog-curl',[AdminController::class,'getBlogCurl'])->name('admin.blog.getBlogCurl');
-    Route::get('admin/blog/categories',[AdminController::class,'blogCategories'] )->name('admin.blog.categories');
-    Route::get('admin/blog/add-category',[AdminController::class,'blogAddCategory'] )->name('admin.blog.addCategory');
-    Route::get('admin/blog/update-category/{id}',[AdminController::class,'blogUpdateCategory'] )->name('admin.blog.updateCategory');
+    Route::get('admin/blog/categories',[AdminController::class,'blogCategories'] )->name('Blog Categories (Admin)');
+    Route::get('admin/blog/add-category',[AdminController::class,'blogAddCategory'] )->name('Blog New Category (Admin)');
+    Route::get('admin/blog/update-category/{id}',[AdminController::class,'blogUpdateCategory'] )->name('Blog Update Category (Admin)');
     Route::post('admin/blog/add-category',[AdminController::class,'blogAddCategorySubmission'] )->name('admin.blog.addedCategory');
     Route::post('admin/blog/update-category/{id}',[AdminController::class,'blogUpdateCategorySubmission'] )->name('admin.blog.updatedCategory');
     Route::get('admin/blog/delete-category/{id}',[AdminController::class,'blogDeleteCategory'] )->name('admin.blog.DeleteCategory');
     // Blog Posts Section--------------------------------------------------------------------------->
     Route::get('admin/blog/get-slug',[AdminController::class,'getSlug'])->name('admin.blog.getSlug');
-    Route::get('admin/blog/posts',[AdminController::class,'posts'])->name('admin.blog.posts');
-    Route::get('admin/blog/add-posts',[AdminController::class,'addPost'])->name('admin.blog.addPost');
+    Route::get('admin/blog/posts',[AdminController::class,'posts'])->name('Posts (Admin)');
+    Route::get('admin/blog/add-posts',[AdminController::class,'addPost'])->name('New Post (Admin)');
     Route::post('admin/blog/add-posts',[AdminController::class,'PostSubmission'])->name('admin.blog.addedSubmission');
-    Route::get('admin/blog/update-post/{id}',[AdminController::class,'updatePost'])->name('admin.blog.updatePost');
+    Route::get('admin/blog/update-post/{id}',[AdminController::class,'updatePost'])->name('Update Post(Admin)');
     Route::post('admin/blog/update-post/{id}',[AdminController::class,'PostSubmissionUpdate'])->name('admin.blog.updatedPost');
     Route::get('admin/blog/delete-post/{id}',[AdminController::class,'deletePost'])->name('admin.blog.deletePost');
     // Product Category Management------------------------------------------------------------------->
     Route::get('admin/get-slugcategory',[AdminController::class,'getCategoryPurl'])->name('admin.getPurl');
-    Route::get('admin/categories',[AdminController::class,'productCategories'])->name('admin.categories');
-    Route::get('admin/add-category',[AdminController::class,'newCategory'])->name('admin.addCategory');
+    Route::get('admin/categories',[AdminController::class,'productCategories'])->name('Product Categories (Admin)');
+    Route::get('admin/add-category',[AdminController::class,'newCategory'])->name('Product New Category (Admin)');
     Route::post('admin/add-category',[AdminController::class,'categorySubmission'])->name('admin.addedCategory');
-    Route::get('admin/update-category/{id}',[AdminController::class,'updateCategory'])->name('admin.updateCategory');
+    Route::get('admin/update-category/{id}',[AdminController::class,'updateCategory'])->name('Product Update Category (Admin)');
     Route::post('admin/update-category/{id}',[AdminController::class,'categoryResubmission'])->name('admin.updatedCategory');
     Route::get('admin/delete-category/{id}',[AdminController::class,'deleteCategory'])->name('admin.deleteCategory');
     // Product Management System
     Route::get('admin/get-slug',[AdminController::class,'getpSlug'])->name('admin.getpSlug');
-    Route::get('admin/products',[AdminController::class,'Products'])->name('admin.products');
-    Route::get('admin/add-product',[AdminController::class,'addProduct'])->name('admin.addProduct');
+    Route::get('admin/products',[AdminController::class,'Products'])->name('Products (Admin)');
+    Route::get('admin/add-product',[AdminController::class,'addProduct'])->name('New Product (Admin)');
     Route::post('admin/add-product',[AdminController::class,'addedProduct'])->name('admin.addedProduct');
-    Route::get('admin/update-product/{id}',[AdminController::class,'updateProduct'])->name('admin.updateProduct');
+    Route::get('admin/update-product/{id}',[AdminController::class,'updateProduct'])->name('Update Product (Admin)');
     Route::post('admin/update-product/{id}',[AdminController::class,'updatedProduct'])->name('admin.updatedProduct');
     Route::get('admin/delete-product/{id}',[AdminController::class,'deleteProduct'])->name('admin.deleteProduct');
     // Users Management System
-    Route::get('admin/users',[AdminController::class,'users'])->name('admin.users');
-    Route::get('admin/update-user/{id}',[AdminController::class,'updateUser'])->name('admin.updateUser');
+    Route::get('admin/users',[AdminController::class,'users'])->name('Users (Admin)');
+    Route::get('admin/update-user/{id}',[AdminController::class,'updateUser'])->name('Update User (Admin)');
     Route::post('admin/update-user/{id}',[AdminController::class,'updatedUser'])->name('admin.updatedUser');
     // Order Management
-    Route::get('admin/orders',[AdminController::class,'orders'])->name('admin.orders');
-    Route::get('admin/order-modify/{order_id}',[AdminController::class,'order_modify'])->name('admin.orderModify');
+    Route::get('admin/orders',[AdminController::class,'orders'])->name('Orders (Admin)');
+    Route::get('admin/order-modify/{order_id}',[AdminController::class,'order_modify'])->name('Order Update (Admin)');
     Route::get('admin/orders/search',[AdminController::class,'orderSearch'])->name('admin.orderSearch');
     Route::post('admin/orders',[AdminController::class,'orderSearchUpdate'])->name('admin.orderSearchUpdate');
 
@@ -125,7 +125,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/seller',[ResellerController::class,'home'] )->name('seller.dashboard');
+    Route::get('/seller',[ResellerController::class,'home'] )->name('Dashboard (Seller)');
 
     //Product Categories
     Route::get('seller/get-slugcategory',[ResellerController::class,'getCategoryPurl'])->name('seller.getPurl');
@@ -162,7 +162,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/customer',[CustomerController::class,'home'] )->name('customer.dashboard');
+    Route::get('/customer',[CustomerController::class,'home'] )->name('Dashboard (Customer)');
     Route::get('/customer/myorders',[CustomerController::class,'myorders'] )->name('customer.myorder');
     Route::get('/customer/myorder/{order_id}',[CustomerController::class,'myorderdetails'] )->name('customer.myorderdetails');
     Route::get('/customer/myinfo',[CustomerController::class,'myinfo'] )->name('customer.myinfo');

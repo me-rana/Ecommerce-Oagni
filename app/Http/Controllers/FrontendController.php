@@ -151,7 +151,7 @@ class FrontendController extends Controller
             $contact->$row = $req->$row;
         }
         $contact->save();
-        return redirect()->route('contact')->with('message','Message sent successfully');
+        return redirect()->route('Contact')->with('message','Message sent successfully');
 
     }
 
@@ -159,7 +159,7 @@ class FrontendController extends Controller
     public function singleProduct(){
         $shop = new Shop();
         $latest_list = $shop->latest_list(4, 0);
-        $products =  $list['latest_Products'];
+        $products =  $latest_list['latest_Products'];
         $data = $this->support();
         return view('frontend.single-product',compact('products'))->with($data);
     }

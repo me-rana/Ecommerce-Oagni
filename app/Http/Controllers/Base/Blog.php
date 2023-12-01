@@ -61,7 +61,6 @@ class Blog extends Controller
         $post->updated_by = '';
         $post->save();
         return true;
-
     }
     public function update($post_id ,$request, $items, $uid){
         $post = Posts::where('id', $post_id)->first();
@@ -81,8 +80,8 @@ class Blog extends Controller
         $latest_posts = Posts::where('status',1)->where('deleted_at', null)->latest()->limit($limit)->get();
         return $latest_posts;
     }
-    public function categories(){
-        $categories = bCategories::all();
+    public function categories($perpage){
+        $categories = bCategories::latest()->paginate($perpage);
         return $categories;
     }
     public function category($curl){

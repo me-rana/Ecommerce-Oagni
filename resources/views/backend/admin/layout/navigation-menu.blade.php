@@ -4,7 +4,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link @if(Request::route()->getName() != 'admin.dashboard')) collapsed  @endif" href="{{route('admin.dashboard')}}">
+        <a class="nav-link @if(Request::route()->getName() != 'Dashboard (Admin)')) collapsed  @endif" href="{{route('Dashboard (Admin)')}}">
             <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -14,14 +14,14 @@
         <a class="nav-link collapsed" data-bs-target="#product-cat" data-bs-toggle="collapse" href="#">
           <i class="bi bi-menu-button-wide"></i><span>Product Categories</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="product-cat" class="nav-content @if (Request::route()->getName() != 'admin.categories' && Request::route()->getName() != 'admin.addCategory') collapse @endif" data-bs-parent="#sidebar-nav">
+        <ul id="product-cat" class="nav-content @if (Request::route()->getName() != 'Product Categories (Admin)' && Request::route()->getName() != 'Product New Categories (Admin)') collapse @endif" data-bs-parent="#sidebar-nav">
           <li>
-            <a class="@if(Request::route()->getName() == 'admin.categories')) active  @endif" href="{{route('admin.categories')}}">
+            <a class="@if(Request::route()->getName() == 'Product Categories (Admin)')) active  @endif" href="{{route('Product Categories (Admin)')}}">
               <i class="bi bi-circle"></i><span>Categories</span>
             </a>
           </li>
           <li>
-            <a class="@if(Request::route()->getName() == 'admin.addCategory')) active  @endif" href="{{route('admin.addCategory')}}">
+            <a class="@if(Request::route()->getName() == 'Product New Category (Admin)')) active  @endif" href="{{route('Product New Category (Admin)')}}">
             <i class="bi bi-circle"></i><span>Add category</span>
             </a>
           </li>
@@ -32,14 +32,14 @@
         <a class="nav-link collapsed" data-bs-target="#products" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journal-text"></i><span>Products</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="products" class="nav-content @if (Request::route()->getName() != 'admin.products' && Request::route()->getName() != 'admin.addProduct') collapse @endif " data-bs-parent="#sidebar-nav">
+        <ul id="products" class="nav-content @if (Request::route()->getName() != 'Products (Admin)' && Request::route()->getName() != 'Products (Admin)') collapse @endif " data-bs-parent="#sidebar-nav">
           <li>
-            <a class="@if(Request::route()->getName() == 'admin.products')) active  @endif" href="{{route('admin.products')}}">
+            <a class="@if(Request::route()->getName() == 'Products (Admin)')) active  @endif" href="{{route('Products (Admin)')}}">
               <i class="bi bi-circle"></i><span>Products</span>
             </a>
           </li>
           <li>
-            <a class="@if(Request::route()->getName() == 'admin.addProduct')) active  @endif" href="{{route('admin.addProduct')}}">
+            <a class="@if(Request::route()->getName() == 'New Product (Admin)')) active  @endif" href="{{route('New Product (Admin)')}}">
               <i class="bi bi-circle"></i><span>Add Product</span>
             </a>
           </li>
@@ -48,7 +48,7 @@
       </li><!-- End Forms Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{route('admin.orders')}}">
+        <a class="nav-link collapsed" href="{{route('Orders (Admin)')}}">
         <i class="bi bi-circle"></i>
           <span>Orders</span>
         </a>
@@ -58,14 +58,14 @@
         <a class="nav-link collapsed" data-bs-target="#bcats-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-menu-button-wide"></i><span>Categories</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
-        <ul id="bcats-nav" class="nav-content @if (Request::route()->getName() != 'admin.blog.categories' && Request::route()->getName() != 'admin.blog.addCategory') collapse @endif" data-bs-parent="#sidebar-nav">
+        <ul id="bcats-nav" class="nav-content @if (Request::route()->getName() != 'Blog Categories (Admin)' && Request::route()->getName() != 'Blog  New Category (Admin)') collapse @endif" data-bs-parent="#sidebar-nav">
           <li>
-            <a class="@if(Request::route()->getName() == 'admin.blog.categories')) active  @endif" href="{{route('admin.blog.categories')}}">
+            <a class="@if(Request::route()->getName() == 'Blog Categories (Admin)')) active  @endif" href="{{route('Blog Categories (Admin)')}}">
               <i class="bi bi-circle"></i><span>Categories</span>
             </a>
           </li>
           <li>
-            <a class="@if(Request::route()->getName() == 'admin.blog.addCategory')) active  @endif" href="{{route('admin.blog.addCategory')}}">
+            <a class="@if(Request::route()->getName() == 'Blog New Category (Admin)')) active  @endif" href="{{route('Blog New Category (Admin)')}}">
             <i class="bi bi-circle"></i><span>Add category</span>
             </a>
           </li>
@@ -76,14 +76,14 @@
         <a class="nav-link collapsed" data-bs-target="#posts-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-menu-button-wide"></i><span>Posts</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
-        <ul id="posts-nav" class="nav-content @if (Request::route()->getName() != 'admin.blog.posts' && Request::route()->getName() != 'admin.blog.addPost') collapse @endif" data-bs-parent="#sidebar-nav">
+        <ul id="posts-nav" class="nav-content @if (Request::route()->getName() != 'Posts (Admin)' && Request::route()->getName() != 'New Posts (Admin)') collapse @endif" data-bs-parent="#sidebar-nav">
           <li>
-            <a class="@if(Request::route()->getName() == 'admin.blog.posts')) active  @endif" href="{{route('admin.blog.posts')}}">
+            <a class="@if(Request::route()->getName() == 'Posts (Admin)')) active  @endif" href="{{route('Posts (Admin)')}}">
               <i class="bi bi-circle"></i><span>Posts</span>
             </a>
           </li>
           <li>
-            <a class="@if(Request::route()->getName() == 'admin.blog.addPost')) active  @endif" href="{{route('admin.blog.addPost')}}">
+            <a class="@if(Request::route()->getName() == 'New Post (Admin)')) active  @endif" href="{{route('New Post (Admin)')}}">
               <i class="bi bi-circle"></i><span>Add Post</span>
             </a>
           </li>
@@ -92,7 +92,7 @@
       </li><!-- End Forms Nav -->
 
       <li class="nav-item">
-        <a class="nav-link @if(Request::route()->getName() != 'admin.users')) collapsed  @endif" href="{{route('admin.users')}}">
+        <a class="nav-link @if(Request::route()->getName() != 'Users (Admin)')) collapsed  @endif" href="{{route('Users (Admin)')}}">
             <i class="bi bi-grid"></i>
           <span>Users</span>
         </a>
@@ -107,7 +107,7 @@
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{route('admin.settings')}}">
+        <a class="nav-link collapsed" href="{{route('Settings (Admin)')}}">
           <i class="bi bi-circle"></i>
           <span>Setting</span>
         </a>

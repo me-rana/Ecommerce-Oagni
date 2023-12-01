@@ -8,15 +8,15 @@
     }
   </style>
 
-        <div class="pagetitle">
-            <h1>Orders</h1>
-            <nav>
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
-                <li class="breadcrumb-item active">Orders</li>
-              </ol>
-            </nav>
-          </div><!-- End Page Title -->
+<div class="pagetitle">
+    <h1>{{Route::currentRouteName()}}</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{route('seller.dashboard')}}">Home</a></li>
+        <li class="breadcrumb-item active">{{Route::currentRouteName()}}</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
 
           <div class="container">
             <div class="row">

@@ -1,15 +1,15 @@
 @extends('backend.admin.layout.admin')
 @section('main-content')
 
-        <div class="pagetitle">
-            <h1>Categories (Blog)</h1>
-            <nav>
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
-                <li class="breadcrumb-item active">Categories</li>
-              </ol>
-            </nav>
-          </div><!-- End Page Title -->
+<div class="pagetitle">
+  <h1>{{Route::currentRouteName()}}</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{{route('Dashboard (Admin)')}}">Home</a></li>
+      <li class="breadcrumb-item active">{{Route::currentRouteName()}}</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
           @include('backend.admin.layout.message-notify')
           <div class="row">
             @if(count($categories) > 0)
@@ -34,6 +34,8 @@
                       </div>
                 </div>
                 @endforeach
+                {{$categories->links('pagination::bootstrap-5')}}
+
             @endif
           </div>
 

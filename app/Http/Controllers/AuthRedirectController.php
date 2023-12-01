@@ -10,17 +10,17 @@ class AuthRedirectController extends Controller
     //
     protected function mydashboard(){
         if(Auth::user()->role == 1){
-            return redirect()->route('customer.dashboard');
+            return redirect()->route('Dashboard (Customer)');
         }
         else if(Auth::user()->role == 2){
-            return redirect()->route('seller.dashboard');
+            return redirect()->route('Dashoard (Seller)');
         }
         else if(Auth::user()->role == 3){
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('Dashboard (Admin)');
         }
 
         else{
-            return redirect()->route('dashboard');
+            return redirect()->route('Home');
         }
     }
 }

@@ -9,7 +9,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@php try { echo $settings->name;} catch (\Exception $e) {echo "Ogani";}@endphp</title>
+    <title>{{ Route::currentRouteName()." - " }} @php try { echo $settings->name;} catch (\Exception $e) {echo "Ogani";}@endphp</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -152,7 +152,7 @@
                     <div class="header__cart">
                         <ul>
                             <li><a href="#"><i class="fa fa-heart"></i> <span>0</span></a></li>
-                            <li><a href="{{route('shopingCart')}}"><i class="fa fa-shopping-bag"></i> <span>@if (is_countable($carts) && count($carts) > 0){{count($carts)}} @else 0 @endif</span></a></li>
+                            <li><a href="{{route('Shoping Cart')}}"><i class="fa fa-shopping-bag"></i> <span>@if (is_countable($carts) && count($carts) > 0){{count($carts)}} @else 0 @endif</span></a></li>
                         </ul>
                         <div class="header__cart__price">item: <span>@php
                             if(is_countable($carts) && count($carts) > 0 ){

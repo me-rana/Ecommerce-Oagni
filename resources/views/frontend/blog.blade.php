@@ -26,7 +26,7 @@
                 <div class="col-lg-4 col-md-5">
                     <div class="blog__sidebar">
                         <div class="blog__sidebar__search">
-                            <form action="{{route('blogSearch')}}">
+                            <form action="{{route('Blog Search')}}">
                                 <input type="text" name="title" placeholder="Search...">
                                 <button type="submit"><span class="icon_search"></span></button>
                             </form>

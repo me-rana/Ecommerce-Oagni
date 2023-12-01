@@ -1,16 +1,15 @@
 @extends('backend.admin.layout.admin')
 @section('main-content')
 
-        <div class="pagetitle">
-            <h1>New Post</h1>
-            <nav>
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{route('admin.blog.posts')}}">Posts</a></li>
-                <li class="breadcrumb-item active">New Post</li>
-              </ol>
-            </nav>
-          </div><!-- End Page Title -->
+<div class="pagetitle">
+  <h1>{{Route::currentRouteName()}}</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{{route('Dashboard (Admin)')}}">Home</a></li>
+      <li class="breadcrumb-item active">{{Route::currentRouteName()}}</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
           @if (session('message'))
           <div class="alert alert-primary alert-dismissible fade show" role="alert">
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -28,7 +27,7 @@
                 @csrf
                 <div class="mb-3">
                     <label for="" class="form-label">Title</label>
-                    <input type="text" name="title" id="title" value="{{$getPost->title ?? ''}}" class="form-control" placeholder="" aria-describedby="helpId">
+                    <input type="text" name="title" id="title" value="{{$getPost->title ??  old('title') ?? ''}}" class="form-control" placeholder="" aria-describedby="helpId">
                     <small><span class="text-danger"> @error('title') {{$message}} @enderror </span></small>
                   </div>
                   @if (Route::currentRouteName() == 'admin.blog.updatedPost')
@@ -37,7 +36,7 @@
                   
                   <div class="mb-3">
                     <label for="" class="form-label">Post Slug</label>
-                    <input type="text" name="slug" id="slug" value="{{$getPost->slug ?? ''}}" class="form-control" placeholder="" aria-describedby="helpId">
+                    <input type="text" name="slug" id="slug" value="{{$getPost->slug ?? old('slug') ?? ''}}" class="form-control" placeholder="" aria-describedby="helpId" disabled>
                     <small><span class="text-danger"> @error('slug') {{$message}} @enderror </span></small>
                   </div>
                   <div class="mb-3">
@@ -68,7 +67,7 @@
                   <div class="mb-3">
                     <label for="" class="form-label">Description of the Post</label>
                     <textarea class="form-control" name="content" id="editor">@php
-                        echo html_entity_decode($getPost->content ?? '')
+                        echo html_entity_decode($getPost->content ?? old('content') ?? '')
                     @endphp</textarea>
                     <small><span class="text-danger"> @error('content') {{$message}} @enderror </span></small>
                   </div>

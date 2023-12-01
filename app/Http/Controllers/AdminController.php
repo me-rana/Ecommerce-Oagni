@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Redirect;
+
 
 class AdminController extends Controller
 {
@@ -89,7 +89,7 @@ class AdminController extends Controller
             $settings->update();
 
         }
-        return redirect()->route('admin.settings')->with('message','Settings updated Successfully.');
+        return redirect()->route('Settings (Admin)')->with('message','Settings updated Successfully.');
     }
 
 
@@ -103,9 +103,10 @@ class AdminController extends Controller
         ]);
     }
     protected function blogCategories(){
+        $perpage = 12;
         $blog = $this->Blog();
-        $categories = $blog->categories();
-        return view ('backend.admin.blog.categories',compact('categories'));
+        $categories = $blog->categories($perpage);
+        return view ('backend.admin.blog.categories',compact('categories'))->with('i',(request()->input('page',1)-1)*$perpage);;
 
     }
     protected function blogAddCategory(){
@@ -117,7 +118,7 @@ class AdminController extends Controller
     protected function blogUpdateCategory($id){
         $categories = bCategories::find($id);
         if(is_null($categories)){
-            return redirect()->route('admin.blog.addCategory');
+            return redirect()->route('Blog New Category (Admin)');
         }
         else{
         $title = 'Update Category';
@@ -130,34 +131,32 @@ class AdminController extends Controller
         $req->validate(
             [
                 'cname' => 'required',
-                'curl' => 'required',
                 'cdescription' => 'required'
             ]
             );
         $items = ['cname', 'curl', 'cdescription'];
         $category = $this->Blog();
         $category->category_submission($req, $items, Auth::user()->id);
-        return redirect()->route('admin.blog.categories')->with('message','New Category added Successfully.');
+        return redirect()->route('Blog Categories (Admin)')->with('message','New Category added Successfully.');
     }
     protected function blogUpdateCategorySubmission(Request $req,$id) : RedirectResponse{
         $req->validate(
             [
                 'cname' => 'required',
-                'curl' => 'required',
                 'cdescription' => 'required'
             ]
             );
         $items = ['cname', 'curl', 'cdescription'];
         $category = $this->Blog();
         $category->category_resubmission($id, $req, $items, Auth::user()->id );
-        return redirect()->route('admin.blog.categories')->with('message','The Category updated Successfully.');
+        return redirect()->route('Blog Categories (Admin)')->with('message','The Category updated Successfully.');
     }
 
     //Delete Blog Categories
     protected function blogDeleteCategory($id){
-        $category = new Blog();
+        $category = $this->Blog();
         $category->delete_category($id);
-        return redirect()->route('admin.blog.categories')->with('message','The Category deleted Successfully.');
+        return redirect()->route('Blog Categories (Admin)')->with('message','The Category deleted Successfully.');
     }
 
 
@@ -171,7 +170,7 @@ class AdminController extends Controller
     }
     protected function posts(){
         $perpage = 20;
-        $post = new Blog();
+        $post = $this->Blog();
         $posts = $post->admin_read($perpage);
         return view ('backend.admin.blog.posts',compact('posts'))->with('i',(request()->input('page',1)-1)*$perpage);
     }
@@ -186,47 +185,40 @@ class AdminController extends Controller
         $req->validate(
             [
                 'title' => 'required',
-                'slug' => 'required',
                 'content' => 'required',
-                'tag' => 'required',
-                'status' => 'required',
-                'catgeory' => 'required'
-
+                'tag' => 'required'
             ]);
         $items = ['title', 'slug', 'content', 'tag', 'status', 'category'];
-        $blog = new Blog();
-        $create = $blog->create($req, $items, Auth::user()->id);
-        return redirect()->route('admin.blog.posts')->with('message','The Post added Successfully');
+        $blog =  $this->Blog();
+        $action = $blog->create($req, $items, Auth::user()->id);
+        if ($action == true){
+            $message = 'The Post added Successfully';
+        }
+        else {
+            $message = 'Something went wrong';
+        }
+        return redirect()->back()->with('message',$message);
     }
 
     protected function updatePost($id){
-        $getPost = Posts::find($id);
-        if(is_null($getPost)){
-            return redirect()->route('admin.blog.addPost');
-        }
-        else{
+        $getPost = Posts::where('id', $id)->first();
         $title = 'Update Content of the Post';
         $post_id = $id;
         $submission = null;
         $categories = bCategories::all();
         $data = compact('title','submission','categories','getPost','post_id');
         return view('backend.admin.blog.new-post')->with($data);
-        }
     }
     protected function postSubmissionUpdate(Request $req, $id) : RedirectResponse {
         $req->validate(
             [
                 'title' => 'required',
-                'slug' => 'required',
                 'content' => 'required',
-                'tag' => 'required',
-                'status' => 'required',
-                'catgeory' => 'required'
-
+                'tag' => 'required'
             ]);
         $items = ['title', 'slug', 'content', 'tag', 'status', 'category'];
         $post_id = $id;
-        $blog = new Blog();
+        $blog = $this->Blog();
         $blog->update($post_id , $req, $items, Auth::user()->id);
         return redirect()->back()->with('message','The Post updated Successfully');
     }
@@ -237,7 +229,7 @@ class AdminController extends Controller
             File::delete($image_path);
         }
         $post->delete();
-        return redirect()->route('admin.blog.posts')->with('message','The Post deleted Successfully');
+        return redirect()->route('Posts (Admin)')->with('message','The Post deleted Successfully');
 
     }
 
@@ -274,31 +266,29 @@ class AdminController extends Controller
     protected function categorySubmission(Request $req) : RedirectResponse{
         $req->validate([
             'pname' => 'required',
-            'purl' => 'required',
             'pdescription' => 'required'
         ]);
         $items = ['pname', 'purl', 'pdescription'];
         $shop = $this->Shop();
         $shop->submission_category($req, $items, Auth::user()->id);
-        return redirect()->route('admin.categories')->with('message','New Category added Successfully.');
+        return redirect()->route('Product Categories (Admin)')->with('message','New Category added Successfully.');
     }
   
     protected function categoryResubmission(Request $req,$id) : RedirectResponse{
         $req->validate([
             'pname' => 'required',
-            'purl' => 'required',
             'pdescription' => 'required'
         ]);
         $items = ['pname', 'purl', 'pdescription'];
         $shop = $this->Shop();
         $shop->resubmission_category($id, $req, $items, Auth::user()->id);
-        return redirect()->route('admin.categories')->with('message','New Category added Successfully.');
+        return redirect()->route('Product Categories (Admin)')->with('message','New Category added Successfully.');
     }
     //Delete Categories
     protected function deleteCategory($id){
         $shop = $this->Shop();
         $category = $shop->delete_category($id);
-        return redirect()->route('admin.categories')->with('message','The Category deleted Successfully.');
+        return redirect()->route('Product Categories (Admin)')->with('message','The Category deleted Successfully.');
     }
 
     //Products Management Syetem------------------------------------------------------------------------------------>
@@ -322,53 +312,50 @@ class AdminController extends Controller
         $data = compact('title','submission','categories');
         return view('backend.admin.new-product')->with($data);
     }
-    protected function addedProduct(Request $req) : RedirectResponse{
-        $req->validate([
-            'proname' => 'required',
-            'slug' => 'required',
-            'category' => 'required',
-            'original_price' =>'required',
-            'availablity' => 'required',
-            'description' => 'required'
-        ]);
+    protected function addedProduct(Request $req) : RedirectResponse {
+        $req->validate(
+            [
+                'pro_name' => 'required',
+                'orginal_price' =>'required',
+                'description' => 'required'
+            ]);
+        
         $items = ['pro_name', 'slug', 'category', 'orginal_price', 'discount_price', 'availability', 'shipping', 'weight', 'description', 'information'];
         $shop = $this->Shop();
-        $product = $shop->product_submitted($req, $items, Auth::user()->id);
-        return redirect()->route('admin.products')->with('message','Product added Successfully');
-    }
-    protected function updateProduct($id){
-        $product = Products::find($id);
-        if (is_null($product)){
-            return redirect()->route('admin.addProduct');
+        $action = $shop->product_submitted($req, $items, Auth::user()->id);
+        if ($action == true){
+            $message = 'Product Added Successful';
         }
         else{
-            $title = 'Update Product';
-            $submission = null;
-            $categories = pCategories::all();
-            $data = compact('title','submission','categories','product');
-            return view('backend.admin.new-product')->with($data);
-
+            $message = 'Something went wrong';
         }
+        return redirect()->route('Products (Admin)')->with('message',$message);
+    }
+    protected function updateProduct($id){
+        $product = Products::where('id', $id)->first();
+        $title = 'Update Product';
+        $submission = null;
+        $categories = pCategories::all();
+        $data = compact('title','submission','categories','product');
+        return view('backend.admin.new-product')->with($data);
     }
     protected function  updatedProduct(Request $req, $id) : RedirectResponse{
-        $req->validate([
-            'proname' => 'required',
-            'slug' => 'required',
-            'category' => 'required',
-            'original_price' =>'required',
-            'availablity' => 'required',
-            'description' => 'required'
-        ]);
+        $req->validate(
+            [
+                'pro_name' => 'required',
+                'orginal_price' =>'required',
+                'description' => 'required'
+            ]);
         $items = ['pro_name', 'slug', 'category', 'orginal_price', 'discount_price', 'availability', 'shipping', 'weight', 'description', 'information'];
         $shop = $this->Shop();
         $product = $shop->product_resubmitted($id, $req, $items, Auth::user()->id);
-        return redirect()->route('admin.products')->with('message','Product updated Successfully');
+        return redirect()->route('Products (Admin')->with('message','Product updated Successfully');
     }
 
     protected function deleteProduct($id){
         $shop = $this->Shop();
         $product =$shop->delete_product($id); 
-        return redirect()->route('admin.products')->with('message','Product deleted Successfully.');
+        return redirect()->route('Products (Admin)')->with('message','Product deleted Successfully.');
     }
 
     //Users Management Systems------------------------------------------------------------------------->
@@ -391,7 +378,7 @@ class AdminController extends Controller
         $user->billing_address = $req->billing_address;
         $user->shipping_address = $req->shipping_address;
         $user->update();
-        return redirect()->route('admin.users')->with('message','User updated successfully');
+        return redirect()->route('Users (Admin)')->with('message','User updated successfully');
     }
 
     protected function orders(){

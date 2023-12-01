@@ -1,16 +1,15 @@
 @extends('backend.seller.layout.seller')
 @section('main-content')
 
-        <div class="pagetitle">
-            <h1>{{$title}}</h1>
-            <nav>
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{route('admin.products')}}">Products</a></li>
-                <li class="breadcrumb-item active">{{$title}}</li>
-              </ol>
-            </nav>
-          </div><!-- End Page Title -->
+<div class="pagetitle">
+  <h1>{{Route::currentRouteName()}}</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{{route('seller.dashboard')}}">Home</a></li>
+      <li class="breadcrumb-item active">{{Route::currentRouteName()}}</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
           <div class="container card py-2">
             <div class="py-5">
                 <h4 class="text-center"><b>{{$title}}</b></h4>

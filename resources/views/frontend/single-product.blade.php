@@ -9,7 +9,7 @@
                     <div class="breadcrumb__text">
                         <h2>{{$product->pro_name ?? ''}}</h2>
                         <div class="breadcrumb__option">
-                            <a href="{{route('home')}}">Home</a>
+                            <a href="{{route('Home')}}">Home</a>
                             <a href="./index.html">Vegetables</a>
                             <span>{{$product->pro_name ?? ''}}</span>
                         </div>
@@ -57,7 +57,7 @@
                         <div class="product__details__price">{{$product->discount_price ?? $product->orginal_price}} BDT</div>
                         <p>@php echo Str::words($product->content,50);; @endphp </p>
                         <div class="product__details__quantity">
-                            <form action="{{route('singleCart')}}" method="post">
+                            <form action="{{route('Single Cart')}}" method="post">
                                 @csrf
                                 <div class="quantity">
                                     <div class="pro-qty">
