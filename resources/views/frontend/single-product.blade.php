@@ -29,7 +29,7 @@
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
                             <img class="product__details__pic__item--large"
-                                src="../storage/image/{{$product->image_path ?? ''}}" alt="">
+                                src="../../{{$product->image_path ?? ''}}" alt="">
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
                             <img data-imgbigurl="../assets/img/product/details/product-details-2.jpg"
@@ -144,7 +144,7 @@
                     @foreach ($products as $product)
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="../storage/image/{{$product->image_path}}">
+                            <div class="product__item__pic set-bg" data-setbg="../../{{$product->image_path}}">
                                 <ul class="product__item__pic__hover">
                                     <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                     <li><a href="../product/{{$product->slug}}"><i class="fa fa-retweet"></i></a></li>
