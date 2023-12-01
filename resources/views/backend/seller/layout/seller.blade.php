@@ -50,7 +50,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="{{route('admin.dashboard')}}" class="logo d-flex align-items-center">
+      <a href="{{route('Dashboard (Seller)')}}" class="logo d-flex align-items-center">
 
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Croissant+One&display=swap');

@@ -5,7 +5,7 @@
   <h1>{{Route::currentRouteName()}}</h1>
   <nav>
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{{route('seller.dashboard')}}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{{route('Dashboard (Seller)')}}">Home</a></li>
       <li class="breadcrumb-item active">{{Route::currentRouteName()}}</li>
     </ol>
   </nav>
@@ -20,11 +20,11 @@
                 <div class="mb-3">
                     <label for="" class="form-label">Product Name <font color="red">*</font></label>
                     <input type="text" name="pro_name" id="pro_name" value="{{$product->pro_name ?? ''}}" class="form-control" placeholder="" aria-describedby="helpId" >
-                    <small id="helpId" class="text-muted">Write a valid name of your product</small>
+                    <small><span class="text-danger"> @error('name') {{$message}} @enderror </span></small>
                   </div>
                   <div class="mb-3">
                     <label for="" class="form-label">Slug <font color="red">*</font></label>
-                    <input type="text" name="slug" id="slug" value="{{$product->slug ?? ''}}" class="form-control" placeholder="" aria-describedby="helpId" >
+                    <input type="text" name="slug" id="slug" value="{{$product->slug ?? ''}}" class="form-control" placeholder="" aria-describedby="helpId" disabled>
                     <small id="helpId" class="text-muted">This link will genarated automatically</small>
                   </div>
                   <div class="mb-3">
@@ -45,7 +45,7 @@
                     <div class="col-6"><div class="mb-3">
                       <label for="" class="form-label">Product Price <font color="red">*</font></label>
                       <input type="number" name="orginal_price" id="" value="{{$product->orginal_price ?? ''}}" class="form-control" placeholder="" aria-describedby="helpId" >
-                      <small id="helpId" class="text-muted">1000</small>
+                      <small><span class="text-danger"> @error('price') {{$message}} @enderror </span></small>
                     </div></div>
                     <div class="col-6"><div class="mb-3">
                         <label for="" class="form-label">Product Discount Price</label>
@@ -66,6 +66,7 @@
                     <textarea class="form-control" name="description" id="editor" rows="3" >@php
                         echo html_entity_decode($product->description ?? '')
                     @endphp</textarea>
+                    <small><span class="text-danger"> @error('description') {{$message}} @enderror </span></small>
                   </div>
                   <div class="row">
                     <div class="col-6"><div class="mb-3">

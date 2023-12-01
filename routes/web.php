@@ -129,25 +129,25 @@ Route::middleware([
 
     //Product Categories
     Route::get('seller/get-slugcategory',[ResellerController::class,'getCategoryPurl'])->name('seller.getPurl');
-    Route::get('seller/categories',[ResellerController::class,'productCategories'])->name('seller.categories');
-    Route::get('seller/add-category',[ResellerController::class,'newCategory'])->name('seller.addCategory');
+    Route::get('seller/categories',[ResellerController::class,'productCategories'])->name('Product Categories (Seller)');
+    Route::get('seller/add-category',[ResellerController::class,'newCategory'])->name('Product New Category (Seller)');
     Route::post('seller/add-category',[ResellerController::class,'categorySubmission'])->name('seller.requestedCategory');
 
     //Products
 
     Route::get('seller/get-slug',[ResellerController::class,'getpSlug'])->name('seller.getpSlug');
-    Route::get('seller/products',[ResellerController::class,'Products'])->name('seller.products');
-    Route::get('seller/add-product',[ResellerController::class,'addProduct'])->name('seller.addProduct');
+    Route::get('seller/products',[ResellerController::class,'Products'])->name('Products (Seller)');
+    Route::get('seller/add-product',[ResellerController::class,'addProduct'])->name('New Product (Seller)');
     Route::post('seller/add-product',[ResellerController::class,'addedProduct'])->name('seller.addedProduct');
-    Route::get('seller/update-product/{id}',[ResellerController::class,'updateProduct'])->name('seller.updateProduct');
+    Route::get('seller/update-product/{id}',[ResellerController::class,'updateProduct'])->name('Update Product Seller');
     Route::post('seller/update-product/{id}',[ResellerController::class,'updatedProduct'])->name('seller.updatedProduct');
     Route::get('seller/delete-product/{id}',[ResellerController::class,'deleteProduct'])->name('seller.deleteProduct');
     //MyInfo
-    Route::get('seller/myinfo',[ResellerController::class,'myInfo'])->name('seller.myinfo');
+    Route::get('seller/myinfo',[ResellerController::class,'myInfo'])->name('My Info (Seller)');
     Route::post('seller/myinfo',[ResellerController::class,'myInfoUpdated'])->name('seller.updatedmyinfo');
     //Order
-    Route::get('seller/orders',[ResellerController::class,'orders'])->name('seller.orders');
-    Route::get('seller/order-modify/{order_id}',[ResellerController::class,'order_modify'])->name('seller.orderModify');
+    Route::get('seller/orders',[ResellerController::class,'orders'])->name('Orders (Seller)');
+    Route::get('seller/order-modify/{order_id}',[ResellerController::class,'order_modify'])->name('Order Update (Seller)');
     Route::get('seller/orders/search',[ResellerController::class,'orderSearch'])->name('seller.orderSearch');
     Route::post('seller/orders',[ResellerController::class,'orderSearchUpdate'])->name('seller.orderSearchUpdate');
 

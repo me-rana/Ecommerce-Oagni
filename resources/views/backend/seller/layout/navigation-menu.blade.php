@@ -4,7 +4,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link @if(Request::route()->getName() != 'seller.dashboard')) collapsed  @endif" href="{{route('seller.dashboard')}}">
+        <a class="nav-link @if(Request::route()->getName() != 'Dashboard (Seller)')) collapsed  @endif" href="{{route('Dashboard (Seller)')}}">
             <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -14,14 +14,14 @@
         <a class="nav-link collapsed" data-bs-target="#product-cat" data-bs-toggle="collapse" href="#">
           <i class="bi bi-menu-button-wide"></i><span>Product Categories</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="product-cat" class="nav-content @if (Request::route()->getName() != 'seller.categories' && Request::route()->getName() != 'seller.addCategory') collapse @endif" data-bs-parent="#sidebar-nav">
+        <ul id="product-cat" class="nav-content @if (Request::route()->getName() != 'Product Categories (Seller)' && Request::route()->getName() != 'Product New Category (Seller)') collapse @endif" data-bs-parent="#sidebar-nav">
           <li>
-            <a class="@if(Request::route()->getName() == 'seller.categories')) active  @endif" href="{{route('seller.categories')}}">
+            <a class="@if(Request::route()->getName() == 'Product Categories (Seller)')) active  @endif" href="{{route('Product Categories (Seller)')}}">
               <i class="bi bi-circle"></i><span>Categories</span>
             </a>
           </li>
           <li>
-            <a class="@if(Request::route()->getName() == 'seller.addCategory')) active  @endif" href="{{route('seller.addCategory')}}">
+            <a class="@if(Request::route()->getName() == 'Product New Category (Seller)')) active  @endif" href="{{route('Product New Category (Seller)')}}">
             <i class="bi bi-circle"></i><span>Request Category</span>
             </a>
           </li>
@@ -32,14 +32,14 @@
         <a class="nav-link collapsed" data-bs-target="#products" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journal-text"></i><span>Products</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="products" class="nav-content @if (Request::route()->getName() != 'seller.products' && Request::route()->getName() != 'seller.addProduct') collapse @endif " data-bs-parent="#sidebar-nav">
+        <ul id="products" class="nav-content @if (Request::route()->getName() != 'Products (Seller)' && Request::route()->getName() != 'New Product (Seller)') collapse @endif " data-bs-parent="#sidebar-nav">
           <li>
-            <a class="@if(Request::route()->getName() == 'seller.products')) active  @endif" href="{{route('seller.products')}}">
+            <a class="@if(Request::route()->getName() == 'Products (Seller)')) active  @endif" href="{{route('Products (Seller)')}}">
               <i class="bi bi-circle"></i><span>Products</span>
             </a>
           </li>
           <li>
-            <a class="@if(Request::route()->getName() == 'seller.addProduct')) active  @endif" href="{{route('seller.addProduct')}}">
+            <a class="@if(Request::route()->getName() == 'New Product (Seller)')) active  @endif" href="{{route('New Product (Seller)')}}">
               <i class="bi bi-circle"></i><span>Add Product</span>
             </a>
           </li>
@@ -48,7 +48,7 @@
       </li><!-- End Forms Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{route('seller.orders')}}">
+        <a class="nav-link collapsed" href="{{route('Orders (Seller)')}}">
         <i class="bi bi-circle"></i>
           <span>Orders</span>
         </a>
@@ -57,7 +57,7 @@
 
 
       <li class="nav-item">
-        <a class="nav-link @if(Request::route()->getName() != 'seller.myinfo')) collapsed  @endif" href="{{route('seller.myinfo')}}">
+        <a class="nav-link @if(Request::route()->getName() != 'My Info (Seller)')) collapsed  @endif" href="{{route('My Info (Seller)')}}">
             <i class="bi bi-grid"></i>
           <span>My Info</span>
         </a>

@@ -5,7 +5,7 @@
   <h1>{{Route::currentRouteName()}}</h1>
   <nav>
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{{route('seller.dashboard')}}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{{route('Dashboard (Seller)')}}">Home</a></li>
       <li class="breadcrumb-item active">{{Route::currentRouteName()}}</li>
     </ol>
   </nav>
@@ -20,11 +20,11 @@
                 <div class="mb-3">
                     <label for="" class="form-label">Category Name</label>
                     <input type="text" name="pname" id="pname" value="{{$categories->pname ?? ''}}" class="form-control" placeholder="" aria-describedby="helpId">
-                    <small id="helpId" class="text-muted">Beauty, Diet and Weightloss</small>
+                    <small><span class="text-danger"> @error('pname') {{$message}} @enderror </span></small>
                   </div>
                   <div class="mb-3">
                     <label for="" class="form-label">Category Slug</label>
-                    <input type="text" name="purl" id="purl" value="{{$categories->purl ?? ''}} " class="form-control" placeholder="" aria-describedby="helpId">
+                    <input type="text" name="purl" id="purl" value="{{$categories->purl ?? ''}} " class="form-control" placeholder="" aria-describedby="helpId" disabled>
                     <small id="helpId" class="text-muted">beauty,weightloss</small>
                   </div>
                   <div class="mb-3">
@@ -35,7 +35,7 @@
                   <div class="mb-3">
                     <label for="" class="form-label">Description of the Category</label>
                     <input type="text" name="pdescription" value="{{$categories->pdescription ?? ''}}" id="" class="form-control" placeholder="" aria-describedby="helpId">
-                    <small id="helpId" class="text-muted">In this category, All the contents are related to the beauty.</small>
+                    <small><span class="text-danger"> @error('pdescription') {{$message}} @enderror </span></small>
                   </div>
                   <div class="py-4">
                   <input type="submit" value="Create" class="btn btn-primary">

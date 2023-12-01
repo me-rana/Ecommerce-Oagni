@@ -55,13 +55,12 @@ class ResellerController extends Controller
     protected function categorySubmission(Request $req) : RedirectResponse{
         $req->validate([
             'pname' => 'required',
-            'purl' => 'required',
             'pdescription' => 'required'
         ]);
         $items = ['pname', 'purl', 'pdescription'];
         $shop = $this->Shop();
         $shop->submission_category($req, $items, Auth::user()->id);
-        return redirect()->route('seller.categories')->with('message','New Category added Successfully.');
+        return redirect()->route('Product Categories (Seller)')->with('message','New Category added Successfully.');
     }
 
     //Products----------------------------------------------------------------------------------->
@@ -87,22 +86,19 @@ class ResellerController extends Controller
     }
     protected function addedProduct(Request $req) : RedirectResponse {
         $req->validate([
-            'proname' => 'required',
-            'slug' => 'required',
-            'category' => 'required',
-            'original_price' =>'required',
-            'availablity' => 'required',
+            'pro_name' => 'required',
+            'orginal_price' =>'required',
             'description' => 'required'
         ]);
         $items = ['pro_name', 'slug', 'category', 'orginal_price', 'discount_price', 'availability', 'shipping', 'weight', 'description', 'information'];
         $shop = $this->Shop();
         $product = $shop->product_submitted($req, $items, Auth::user()->id);
-        return redirect()->route('seller.products')->with('message','Product added Successfully');
+        return redirect()->route('Products (Seller)')->with('message','Product added Successfully');
     }
     protected function updateProduct($id){
         $product = Products::find($id);
         if (is_null($product)){
-            return redirect()->route('seller.addProduct');
+            return redirect()->route('New Product (Seller)');
         }
         else{
             $title = 'Update Product';
@@ -115,23 +111,20 @@ class ResellerController extends Controller
     }
     protected function  updatedProduct(Request $req, $id) : RedirectResponse {
         $req->validate([
-            'proname' => 'required',
-            'slug' => 'required',
-            'category' => 'required',
-            'original_price' =>'required',
-            'availablity' => 'required',
+            'pro_name' => 'required',
+            'orginal_price' =>'required',
             'description' => 'required'
         ]);
         $items = ['pro_name', 'slug', 'category', 'orginal_price', 'discount_price', 'availability', 'shipping', 'weight', 'description', 'information'];
         $shop = $this->Shop();
         $product = $shop->product_resubmitted($id, $req, $items, Auth::user()->id);
-        return redirect()->route('seller.products')->with('message','Product updated Successfully');
+        return redirect()->route('Products (Seller)')->with('message','Product updated Successfully');
     }
 
     protected function deleteProduct($id){
         $shop = $this->Shop();
         $product =$shop->delete_product($id); 
-        return redirect()->route('seller.products')->with('message','Product deleted Successfully.');
+        return redirect()->route('Products (Seller)')->with('message','Product deleted Successfully.');
     }
     protected function orders(){
         $orders = Order::where('seller',Auth::user()->id)->get();

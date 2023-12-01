@@ -13,7 +13,7 @@ class AuthRedirectController extends Controller
             return redirect()->route('Dashboard (Customer)');
         }
         else if(Auth::user()->role == 2){
-            return redirect()->route('Dashoard (Seller)');
+            return redirect()->route('Dashboard (Seller)');
         }
         else if(Auth::user()->role == 3){
             return redirect()->route('Dashboard (Admin)');
