@@ -22,9 +22,7 @@ This is a laravel ecommerce project and used as sample of my work
 <li> Three Panel : Admin, Seller and Customer </li>
 
 <br><br><br>
-<strong>Admin Panel</strong>
-Username : <strong> admin@test.me </strong> <br>
-Password : <strong> adminx4312 </strong> <br>
+<strong>Admin Panel</strong><br>
 -> Can Create or Modify Product Categories <br>
 -> Can Create or Modify Products <br>
 -> Can Create or Modify Blog Categories <br>
@@ -33,17 +31,13 @@ Password : <strong> adminx4312 </strong> <br>
 -> Can Manage Settings <br>
 -> Can Manage User --role <br>
 <br>
-<strong>Seller Panel</strong>
-Username : <strong> seller@test.me </strong> <br>
-Password : <strong> sellerx4312 </strong> <br>
+<strong>Seller Panel</strong><br>
 -> Can Request Product Categories <br>
 -> Can Create or Modify products --only him <br>
 -> Can Manage Order --only him <br>
 -> Can Modify his own info <br>
 <br>
-<strong>User Panel</strong>
-Username : <strong> user@test.me </strong> <br>
-Password : <strong> userx4312 </strong> <br>
+<strong>User Panel</strong> <br>
 -> Can Cart <br>
 -> Can View Order <br>
 -> Can Modify User Info <br>
@@ -58,12 +52,18 @@ Password : <strong> userx4312 </strong> <br>
 
 <br>
 <center><h3>Admin Panel</h3> </center><br>
+Username : <strong> admin@test.me </strong> <br>
+Password : <strong> adminx4312 </strong> <br>
 <img src="image/admin_products.png">
 <br>
 <center><h3>Seller Panel</h3></center> <br>
+Username : <strong> seller@test.me </strong> <br>
+Password : <strong> sellerx4312 </strong> <br>
 <img src="image/seller_order.png">
 <br>
 <center><h3>User Panel</h3></center> <br>
+Username : <strong> user@test.me </strong> <br>
+Password : <strong> userx4312 </strong> <br>
 <img src="image/user_order_details.png">
 
 Thanks, <br>
