@@ -30,7 +30,7 @@
             </div>
             <div class="checkout__form">
                 <h4>Billing Details</h4>
-                <form method="post" action="{{route('order')}}">
+                <form method="post" action="{{route('Order')}}">
                     @csrf
                     <div class="row">
                         <div class="col-lg-8 col-md-6">

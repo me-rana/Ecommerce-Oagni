@@ -163,9 +163,9 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/customer',[CustomerController::class,'home'] )->name('Dashboard (Customer)');
-    Route::get('/customer/myorders',[CustomerController::class,'myorders'] )->name('customer.myorder');
-    Route::get('/customer/myorder/{order_id}',[CustomerController::class,'myorderdetails'] )->name('customer.myorderdetails');
-    Route::get('/customer/myinfo',[CustomerController::class,'myinfo'] )->name('customer.myinfo');
+    Route::get('/customer/myorders',[CustomerController::class,'myorders'] )->name('My Order (Customer)');
+    Route::get('/customer/myorder/{order_id}',[CustomerController::class,'myorderdetails'] )->name('Order Details (Customer)');
+    Route::get('/customer/myinfo',[CustomerController::class,'myinfo'] )->name('My Info (Customer)');
     Route::post('/customer/myinfo',[CustomerController::class,'myinfoUpdated'] )->name('customer.updatedmyinfo');
 
 });

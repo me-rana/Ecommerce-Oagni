@@ -49,7 +49,7 @@
                                         </td>
                                         <td class="shoping__cart__quantity">
                                             <div class="quantity">
-                                                <form action="{{route('update.Cart')}}" method="post">
+                                                <form action="{{route('Update Cart')}}" method="post">
                                                     @csrf
                                                     <input type="hidden" name="id" value="{{$cart->id}}">
                                                     <div class="pro-qty">

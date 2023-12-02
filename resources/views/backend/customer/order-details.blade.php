@@ -8,7 +8,7 @@
 
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-12 col-12">
-                <center> <img src="../../storage/image/{{$product->image_path}}" height="200px" width="250px" alt="">
+                <center> <img src="../../{{$product->image_path}}" height="200px" width="250px" alt="">
                     <br><strong>{{$order->product_name}}</strong>
                     </center>
                 <div class="row">
