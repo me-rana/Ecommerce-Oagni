@@ -1,6 +1,6 @@
  <!-- Hero Section Begin -->
  <section class="hero
- @if (Route::is('home'))
+ @if (Route::is('Home'))
         ''
      @else
          hero-normal
@@ -46,7 +46,7 @@
                          </div>
                      </div>
                  </div>
-                 @if (Route::is('home'))
+                 @if (Route::is('Home'))
                  <div class="hero__item set-bg" data-setbg="../assets/img/hero/banner.jpg">
                      <div class="hero__text">
                          <span>FRUIT FRESH</span>
