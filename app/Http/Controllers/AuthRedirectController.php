@@ -9,13 +9,13 @@ class AuthRedirectController extends Controller
 {
     //
     protected function mydashboard(){
-        if(Auth::user()->role == 1){
+        if(Auth::user()->usertype == 1){
             return redirect()->route('Dashboard (Customer)');
         }
-        else if(Auth::user()->role == 2){
+        else if(Auth::user()->usertype == 2){
             return redirect()->route('Dashboard (Seller)');
         }
-        else if(Auth::user()->role == 3){
+        else if(Auth::user()->usertype == 3){
             return redirect()->route('Dashboard (Admin)');
         }
 

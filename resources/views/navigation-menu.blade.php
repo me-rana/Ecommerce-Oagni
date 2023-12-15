@@ -5,8 +5,8 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-mark class="block h-9 w-auto" />
+                    <a href="{{ route('mydashboard') }}">
+                        <img src="../../../../{{ 'assets/image/logo.png' ?? '' }}" alt="" srcset="">
                     </a>
                 </div>
 
@@ -139,7 +139,7 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link href="{{ route('mydashboard') }}" :active="request()->routeIs('mydashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
         </div>

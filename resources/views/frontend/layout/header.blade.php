@@ -38,7 +38,7 @@
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
-            <img src="@if ($settings->logo_path != null) {{'../../storage/image/'.$settings->logo_path}} @else ../../assets/img/logo.png @endif" width="120px" height="50px" alt="">
+            <img src="../../{{ $settings->logo_path ??  'assets/img/logo.png'}}" width="120px" height="50px" alt="">
         </div>
         <div class="humberger__menu__cart">
             <ul>
@@ -96,7 +96,7 @@
         </div>
         <div class="humberger__menu__contact">
             <ul>
-                <li><i class="fa fa-envelope"></i> @php try { echo $settings->email;} catch (\Exception $e) {echo "admin@meranaint.com";}@endphp</li>
+                <li><i class="fa fa-envelope"></i> {{ $settings->email ?? 'contact@ranasvc.com' }} </li>
                 <li>Free Shipping for all Order of $99</li>
             </ul>
         </div>
@@ -111,7 +111,7 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
                             <ul>
-                                <li><i class="fa fa-envelope"></i> @php try { echo $settings->email;} catch (\Exception $e) {echo "admin@meranaint.com";}@endphp</li>
+                                <li><i class="fa fa-envelope"></i> {{ $settings->email ?? 'contact@ranasvcc.com' }} </li>
                                 <li>Free Shipping for all Order of $99</li>
                             </ul>
                         </div>
@@ -142,7 +142,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <img src="@if ($settings->logo_path != null) {{'../../storage/image/'.$settings->logo_path}} @else ../../assets/img/logo.png @endif" width="120px" height="50px" alt="">
+                        <img src="../../{{ $settings->logo_path ?? 'assets/img/logo.png' }}" width="120px" height="50px" alt="">
                     </div>
                 </div>
                 <div class="col-lg-6">

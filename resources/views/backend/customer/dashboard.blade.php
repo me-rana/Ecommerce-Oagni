@@ -3,18 +3,9 @@
 
 <h5>Welcome {{Auth::user()->name}},</h5>
 <div style="min-height: 400px">
-    <div class="row py-2">
-        <div class="col-lg-3 col-md-3 col-sm-6 col-6"><div class="card"><img src="../../storage/image/checkmate.webp" alt="Use it for Sample by MERANA International" srcset=""></div></div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-6"><div class="card"><img src="../../storage/image/checkmate.webp" alt="Use it for Sample by MERANA International" srcset=""></div></div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-6"><div class="card"><img src="../../storage/image/checkmate.webp" alt="Use it for Sample by MERANA International" srcset=""></div></div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-6"><div class="card"><img src="../../storage/image/checkmate.webp" alt="Use it for Sample by MERANA International" srcset=""></div></div>
-    </div>
-    <div class="row py-2">
-        <div class="col-lg-3 col-md-3 col-sm-6 col-6"><div class="card"><img src="../../storage/image/checkmate.webp" alt="Use it for Sample by MERANA International" srcset=""></div></div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-6"><div class="card"><img src="../../storage/image/checkmate.webp" alt="Use it for Sample by MERANA International" srcset=""></div></div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-6"><div class="card"><img src="../../storage/image/checkmate.webp" alt="Use it for Sample by MERANA International" srcset=""></div></div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-6"><div class="card"><img src="../../storage/image/checkmate.webp" alt="Use it for Sample by MERANA International" srcset=""></div></div>
-    </div>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, voluptatum. Vero officiis adipisci molestias nihil vitae. Nesciunt porro repellat rerum, nostrum facere doloremque, quis maiores adipisci eum inventore harum voluptate.
+    <br>
+    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Provident quis ipsa exercitationem omnis ipsam a, modi corrupti corporis. Ullam nam enim nihil omnis saepe a? Impedit rerum tempora neque vero.
 
 </div>
 

@@ -23,7 +23,7 @@ use App\Http\Controllers\AuthRedirectController;
 //Frontend Controller Use for Management Public Views
 Route::prefix('/')->group(function () {
     Route::get('/',[FrontendController::class,'home'])->name('Home');
-    Route::get('/back',[FrontendController::class,'sendMeBack'])->name('Redirect');
+    Route::get('/back',[FrontendController::class,'sendMeBack'])->name('sendMeBack');
     Route::get('shop',[FrontendController::class,'shop'])->name('Shop');
     Route::get('search',[FrontendController::class,'searchResult'])->name('Search Result');
     Route::get('category/{purl}',[FrontendController::class,'categoryAction'])->name('Product Category Action');
@@ -48,16 +48,6 @@ Route::prefix('/')->group(function () {
 });
 
 //All User
-Route::middleware([
-    'auth:sanctum',
-    'auth.permit:0',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
 
 //Admin
 Route::middleware([

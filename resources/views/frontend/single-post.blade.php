@@ -37,7 +37,7 @@
                             <ul>
                                 @if (count($blogCategories) > 0)
                                     @foreach ($blogCategories as $blogCategory)
-                                    <li><a href="../blog-categories/{{$blogCategory->curl}}">{{$blogCategory->cname}}</a></li>
+                                    <li><a href="../blog-category/{{$blogCategory->curl}}">{{$blogCategory->cname}}</a></li>
                                     @endforeach
                                 @endif
 

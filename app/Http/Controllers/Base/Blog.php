@@ -84,9 +84,14 @@ class Blog extends Controller
         $categories = bCategories::latest()->paginate($perpage);
         return $categories;
     }
-    public function category($curl){
+    public function categories_all(){
+        $categories = bCategories::all();
+        return $categories;
+    }
+    public function category($curl, $perpage){
         $category = bCategories::where('curl', $curl)->first();
-        return $category;
+        $posts = Posts::where('category', $category->id)->paginate($perpage);
+        return $posts;
     }
     public function category_submission ($request,$items, $uid){
         $category = new bCategories();

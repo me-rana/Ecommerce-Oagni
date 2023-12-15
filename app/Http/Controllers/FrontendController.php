@@ -95,7 +95,7 @@ class FrontendController extends Controller
         $perpage = 20;
         $blog = new Blog();
         $data = $this->support();
-        $blogCategories = $blog->categories();
+        $blogCategories = $blog->categories($perpage);
         $posts = $blog->read($perpage);
         $posts_latest = $blog->latest_posts(3);
         return view('frontend.blog',compact('blogCategories','posts','posts_latest'))->with($data)->with('i',(request()->input('page',1)-1)*$perpage);
@@ -106,20 +106,20 @@ class FrontendController extends Controller
         $perpage = 12;
         $blog = new Blog();
         $data = $this->support();
-        $blogCategories = $blog->categories();
+        $blogCategories = $blog->categories($perpage);
         $posts = $blog->searchResult($req->title, $perpage);
         $posts_latest = $blog->latest_posts(3);
         return view('frontend.blog',compact('blogCategories','posts','posts_latest'))->with($data)->with('i',(request()->input('page',1)-1)*$perpage);
     }
     //Blog Category Action
     public function blogCategoryAction($curl){
+        $perpage = 20;
         $blog = new Blog();
         $data = $this->support();
-        $blogCategories = $blog->categories();
-        $category = $blog->category($curl);
-        $posts = $category->getposts;
+        $blogCategories = $blog->categories($perpage);
+        $posts = $blog->category($curl ,$perpage);
         $posts_latest = $blog->latest_posts(3);
-        return view('frontend.blog',compact('blogCategories','posts','posts_latest'))->with($data);
+        return view('frontend.blog',compact('blogCategories','posts','posts_latest'))->with($data)->with('i',(request()->input('page',1)-1)*$perpage);
     }
 
     //Single Post
@@ -128,7 +128,7 @@ class FrontendController extends Controller
         $data = $this->support();
         $post = $blog->read_one($slug);
         $latest_posts = $blog->latest_posts(3);
-        $blogCategories = $blog->categories();
+        $blogCategories = $blog->categories_all();
         return view('frontend.single-post',compact('latest_posts', 'post', 'blogCategories'))->with($data);
     }
 

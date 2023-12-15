@@ -16,7 +16,7 @@ class AuthManager
      */
     public function handle(Request $request, Closure $next, $id): Response
     {
-        if(Auth::user()->role == $id){
+        if(Auth::user()->usertype == $id){
             return $next($request);
         }
         return redirect('access-denied');

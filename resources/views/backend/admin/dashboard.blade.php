@@ -12,18 +12,11 @@
 </div><!-- End Page Title -->
 
           <div style="min-height: 400px">
-            <div class="row">
-                <div class="col-lg-3 col-md-3 col-sm-6 col-6"><div class="card"><img src="../../storage/image/checkmate.webp" alt="Use it for Sample by MERANA International" srcset=""></div></div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-6"><div class="card"><img src="../../storage/image/checkmate.webp" alt="Use it for Sample by MERANA International" srcset=""></div></div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-6"><div class="card"><img src="../../storage/image/checkmate.webp" alt="Use it for Sample by MERANA International" srcset=""></div></div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-6"><div class="card"><img src="../../storage/image/checkmate.webp" alt="Use it for Sample by MERANA International" srcset=""></div></div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-3 col-sm-6 col-6"><div class="card"><img src="../../storage/image/checkmate.webp" alt="Use it for Sample by MERANA International" srcset=""></div></div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-6"><div class="card"><img src="../../storage/image/checkmate.webp" alt="Use it for Sample by MERANA International" srcset=""></div></div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-6"><div class="card"><img src="../../storage/image/checkmate.webp" alt="Use it for Sample by MERANA International" srcset=""></div></div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-6"><div class="card"><img src="../../storage/image/checkmate.webp" alt="Use it for Sample by MERANA International" srcset=""></div></div>
-            </div>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur consectetur placeat voluptas officia ut exercitationem tempore, adipisci impedit numquam deleniti. Fugit quo hic similique sequi nisi vero esse ipsam nostrum?
+            <br>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem deserunt suscipit facere iusto, ullam excepturi, voluptate tenetur ex tempora libero, est quidem totam exercitationem ipsam earum voluptatem rem. Voluptates, nisi!
+            <br>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium, magnam eos doloremque maxime tempora possimus vel dolorem? Vero aperiam incidunt ratione saepe temporibus, veritatis eveniet illo ab, eius architecto molestiae?
 
         </div>
 

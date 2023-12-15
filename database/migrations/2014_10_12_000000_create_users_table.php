@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('email',100)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->bigInteger('usertype')->nullable()->default(0);
+            $table->bigInteger('usertype')->unsigned()->index()->nullable()->default(1);
+            $table->foreign('usertype')->references('id')->on('roles')->onUpdate('cascade')->onDelete('cascade');
             $table->bigInteger('phone')->length(20)->nullable();
             $table->string('billing_address',500)->nullable();
             $table->string('shipping_address',500)->nullable();
