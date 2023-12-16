@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-lg-4 col-md-4 col-12">
                             <p>Logo size is set 120x50</p>
-                            <img src="@if ($settings->logo_path != null) {{'../../storage/image/'.$settings->logo_path}} @else ../../assets/img/logo.png @endif" width="120px" height="50px" alt="">
+                            <img src="../../{{ $settings->logo_path ?? 'assets/img/logo.png' }}" width="120px" height="50px" alt="">
                         </div>
                       </div>
 

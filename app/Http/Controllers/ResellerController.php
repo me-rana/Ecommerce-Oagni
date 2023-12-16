@@ -127,22 +127,22 @@ class ResellerController extends Controller
         return redirect()->route('Products (Seller)')->with('message','Product deleted Successfully.');
     }
     protected function orders(){
-        $orders = Order::where('seller',Auth::user()->id)->get();
+        $orders = Order::where('seller_id',Auth::user()->id)->get();
         return view('backend.seller.orders',compact('orders'));
     }
     protected function orderSearch(Request $req){
         $noOfProducts = 20;
-        $orders = Order::where('order_id','LIKE','%'.$req->order_id.'%')->where('seller',Auth::user()->id)->latest()->paginate($noOfProducts);
+        $orders = Order::where('order_id','LIKE','%'.$req->order_id.'%')->where('seller_id',Auth::user()->id)->latest()->paginate($noOfProducts);
         return view('backend.seller.orders',compact('orders'))->with('i',(request()->input('page',1)-1)*$noOfProducts);
     }
     protected function order_modify($order_id){
-        $order = Order::where('order_id',$order_id)->where('seller',Auth::user()->id)->first();
+        $order = Order::where('order_id',$order_id)->where('seller_id',Auth::user()->id)->first();
         $product = Products::where('id',$order->product_id)->where('seller',Auth::user()->id)->first();
         $order_update = OrderUpdate::where('order_id',$order_id)->latest()->first();
         return view('backend.seller.order-update',compact('order','order_update','product'));
     }
     protected function orderSearchUpdate(Request $req){
-        $order = Order::where('order_id', $req->order_id)->where('seller',Auth::user()->id)->first();
+        $order = Order::where('order_id', $req->order_id)->where('seller_id',Auth::user()->id)->first();
         $order->status = $req->status ?? 'Processing';
         $order->update();
         if($order->seller == Auth::user()->id){

@@ -74,7 +74,7 @@
 
 
 
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="../seller/faq">
           <i class="bi bi-question-circle"></i>
           <span>F.A.Q</span>
@@ -86,7 +86,7 @@
           <i class="bi bi-envelope"></i>
           <span>Contact</span>
         </a>
-      </li><!-- End Contact Page Nav -->
+      </li><!-- End Contact Page Nav --> --}}
 
     </ul>
 

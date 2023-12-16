@@ -16,13 +16,13 @@
                 @foreach ($users as $user)
                 <div class="col-lg-4 col-md-4 col-sm-12 col-12">
                     <div class="card py-2">
-                        <img class="rounded mx-auto d-block" src="../../storage/image/{{$user->image_path ?? 'user.png'}}" height="200px" alt="Avatar" style="width:70%">
+                        <img class="rounded mx-auto d-block" src="../../{{$user->image_path ?? 'backend-assets/img/user.png'}}" height="200px" alt="Avatar" style="width:70%">
                         <div class="container">
                           <h4 class="text-center"><b>{{$user->name}}</b></h4>
                           <p class="text-center"><b>
-                              @if ($user->role == 3)
+                              @if ($user->usertype == 3)
                                 Admin
-                              @elseif ($user->role == 2)
+                              @elseif ($user->usertype == 2)
                                 Seller
                               @else
                                 Customer

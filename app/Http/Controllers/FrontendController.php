@@ -184,7 +184,7 @@ class FrontendController extends Controller
     }
     //Back
     public function sendMeBack(){
-        return redirect()->back();
+        return redirect()->route('Home');
     }
     //Order Placed
     protected function order(Request $req){
@@ -213,7 +213,7 @@ class FrontendController extends Controller
             $order->product_name = $cart->product_name;
             $order->quantity = $cart->quantity;
             $order->price = $cart->price;
-            $order->seller = $cart->getImage->seller;
+            $order->seller_id = $cart->getImage->seller;
             $order->uid = Auth::user()->id;
             $totalx = $cart->price * $cart->quantity;
             $order->vat = $totalx- (($totalx*99.5)/100);
@@ -225,7 +225,7 @@ class FrontendController extends Controller
             $order->save();
             $cart->delete();
         }
-        return redirect()->route('shop')->with('message','Order placed successful.');
+        return redirect()->route('My Order (Customer)')->with('message','Order placed successful.');
 
     }
 
