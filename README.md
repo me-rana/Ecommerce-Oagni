@@ -3,7 +3,7 @@
 # ecommerce_oagni <br>
 This is a laravel ecommerce project and used as sample of my work
 
-<strong> Live Website : <a href="https://ogani-sample.ranasvc.com">https://ogani-sample.ranasvc.com</a></strong>
+<strong> Live Website : <a href="https://ogani-sample.rana.my.id">https://ogani-sample.rana.my.id</a></strong>
 <h4>Front View</h4>
 <li>Home Page</li>
 <li>Shop Page</li>
